@@ -30,7 +30,7 @@ for n = 1:nObj
     if ismember(graphObj(n).Type,'figure') % If the graphic object is a
         %figure, recursively call the function on its children objects in
         %order to find all the axes objects and axis limits.
-        [childAx,childLim] = matchAxis(graphObj(n).Children,...
+        [childAx,childLim] = plt.matchAxis(graphObj(n).Children,...
             'setLimits',setLimits,'viewRot',viewRot,varargin{:});
         axLim = [axLim; childLim];
         axObj = [axObj; childAx];
