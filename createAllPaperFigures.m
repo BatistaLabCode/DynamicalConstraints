@@ -1,5 +1,5 @@
-% Run this code to create all main figures in the paper.The default is to
-% run all figures without saving the data, but there is an option to
+% Run this script to create all main figures in the paper. The default is
+% to create all figures without saving the data, but there is an option to
 % save the figures and even subselect the desired plots.
 %
 % Note: that there are additional varables you can adjust for each figure
@@ -20,12 +20,12 @@ if isempty(plotFig)
 end
 
 [dataLoc, exSessDataLoc, saveFigLoc] = serverPath;
-figTime = []
+figTime = [];
 tic
 strTime = toc;
 % Create the plots for figure 2
 if ismember(2,plotFig)
-    [F2] = fig_2_twoTarget(dataLoc, ...
+    [F2] = fig_2_two_target(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime = [figTime; toc];
 end
@@ -41,11 +41,11 @@ end
 % Create the plots for figure 4
 if ismember(4,plotFig)
     tic,
-    [F4_proj] = fig_4_plot_View_vs_Projections(dataLoc, ...
+    [F4_proj] = fig_4_plot_view_vs_projections(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime(3) = toc;
     tic,
-    [F4_el,h4,p4] = fig_4_early_vs_late_TT_trajectories_comparisons(dataLoc,...
+    [F4_el,h4,p4] = fig_4_early_vs_late_two_target_trajectories_comparisons(dataLoc,...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime(4) = toc;
 end
@@ -53,7 +53,7 @@ end
 % Create the plots for figure 5
 if ismember(5,plotFig)
     tic,
-    [F5, F5_ff, F5_ffcb, F5_stat] = fig_5_plot_FlowField_Analysis(dataLoc, ...
+    [F5, F5_ff, F5_ffcb, F5_stat] = fig_5_plot_flow_field_analysis(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime = [figTime; toc];
 end
@@ -61,7 +61,7 @@ end
 % Create the plots for figure 6 and 7
 if sum(ismember([6 7],plotFig))
     tic,
-    [F6_hist,F6_intAng,F7_tube,F7_intAngTube,F6_EL] = fig_6_fig7(dataLoc, ...
+    [F6_hist,F6_intAng,F7_tube,F7_intAngTube,F6_EL] = fig_6_fig_7(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime = [figTime; toc];
 end
