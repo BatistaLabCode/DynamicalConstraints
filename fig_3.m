@@ -29,7 +29,7 @@ function [F2d,F,h2di,p2di] = fig_3(dataLoc,varargin)
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
-%% Load in the D structure and the data
+% Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session that we plot the neural
                             % space trajectories.
 saveFig = 0;                % Determine whether or not to save the data,
@@ -53,7 +53,7 @@ load(fullfile(dataLoc,'dPrime_workspace+neuralSpace_fig3.mat'))
 % Identify the example session
 maskSessEx = find(ismember({dir_list(:,1).dataset},exampleSess));
 
-%% Create the 2D GPFA plots of the example session
+% Create the 2D GPFA plots of the example session
 
 % Load the decoder
 [TD, ~, ~] = util.loadSessionData(dir_list(maskSessEx,1));
@@ -163,7 +163,7 @@ plt.matchAxis(F2d);
 plt.plotTitle(sprintf('%s%s GPFA Trajectories 2D',dir_list(1,1).subject,dir_list(1,1).dataset));
 F2d.Name = sprintf('%s%s_gpfaTrajectories_2D',dir_list(1,1).subject,dir_list(1,1).dataset);
 
-%% Create a histogram of the different d' conditions
+% Create a histogram of the different d' conditions
 colIM = [180 178 180]./255;
 colSM = [219 240 245]./255;
 
@@ -177,14 +177,15 @@ xlabel("d'"),ylabel("# Experiments")
 title("Intuitive Mapping control trials - Workspace")
 ylim([0 30])
 axis square
-legend('IM trials-decoder_Int','IM trials -decoder_SM',...
-    'Mean IM trials-decoder-Int','Mean IM trials-decoder-SM')
+legend('IM trials-decoder_Int','IM trials-decoder_SM',...
+    'Mean IM trials-decoder-Int','Mean IM trials-decoder-SM', ...
+    'interpreter', 'none')
 F.Name = 'workspace_dPrime_histograms';
 
 % Paired t-test for the 2D space
 [h2di,p2di] = ttest(dP_WS(:,1),dP_WS(:,4));
 
-%% Save the figures
+% Save the figures
 if saveFig
     if isempty(savePathBase)
         savePathBase = uigetdir;

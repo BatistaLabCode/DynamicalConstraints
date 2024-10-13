@@ -1,5 +1,5 @@
-function [F,h,p] = fig_4_early_vs_late_TT_trajectories_comparisons(dataLoc,varargin)
-%% ADD the header
+function [F,h,p] = fig_4_early_vs_late_two_target_trajectories_comparisons(dataLoc,varargin)
+% ADD the header
 %
 %
 %
@@ -8,7 +8,7 @@ function [F,h,p] = fig_4_early_vs_late_TT_trajectories_comparisons(dataLoc,varar
 %
 % Created by Erinn Grigsby (erinn.grigsby@gmail.com)
 
-%% Create a comparison of the early vs late trajectories for the rotated
+% Create a comparison of the early vs late trajectories for the rotated
 % mapping, two target task.
 exampleSess = {'20190719'};% Figure 4 example session
 saveFig = 0;                % Determine whether or not to save the data,
@@ -32,7 +32,7 @@ load(fullfile(dataLoc,'dPrime_EarlyLate+ShuffledData.mat'))
 load(fullfile(dataLoc,'publicationQualitySessions.mat'))
 dir_list = db.get_task_datasets(D, {'tt_int','tt_rot'});
 
-%% Plot the d' values for each condition (early, late, shuff1, and shuff2)
+% Plot the d' values for each condition (early, late, shuff1, and shuff2)
 maskExSess = find(ismember({dir_list(:,1).dataset},exampleSess));
 
 % Collect the d' information 
@@ -88,7 +88,7 @@ F.Name = 'dPrime_early_v_late_singleRun_histogram';
 % Compare the shuffle and early vs late sessions.
 [h,p] = ttest(dp_E-dp_L,dp_sh1-dp_sh2);
 
-%% Create a plot of the example session
+% Create a plot of the example session
 % Load in the trajectory data of the example session
 [TD, ~, ~] = util.loadSessionData(dir_list(maskExSess,2));
 TD = TD.normalize([0 0 0]);
@@ -137,7 +137,7 @@ end
 plt.matchAxis(F(2))
 plt.plotTitle(['Example Session: ' exampleSess])
 
-%% Save the figures
+% Save the figures
 if saveFig
     if isempty(savePathBase)
         savePathBase = uigetdir;

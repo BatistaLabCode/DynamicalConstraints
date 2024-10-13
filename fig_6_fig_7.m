@@ -1,5 +1,5 @@
 function [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc,varargin)
-%% ADD the header
+% ADD the header
 %
 %
 %
@@ -8,7 +8,7 @@ function [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc,varargin)
 %
 % Created by Erinn Grigsby (erinn.grigsby@gmail.com)
 
-%% Load in the D structure and the data
+% Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session used in the paper (fig2).
 saveFig = 0;                % Determine whether or not to save the data,
 % default is to not save the data (0).
@@ -35,7 +35,7 @@ load(fullfile(dataLoc,'centerOut_AngleAnalysisData_Signed.mat'))
 % Load the location where the intermediate target data is saved.
 data_save_loc = fullfile(dataLoc,'ConstrainedPath\mat\int_targ_data');
 
-%% Creates the histogram plots for figure 6 and figure 7
+% Creates the histogram plots for figure 6 and figure 7
 % Create normIntAng variable
 data = nan(size(AD_compare,1),5);
 for n = 1:size(AD_compare,1)
@@ -76,7 +76,7 @@ for n = 1:size(AD_compare,1)
     datNoChange(n).hEL = hEL;
 end
 
-%% Create the normalize center out full change comparison.
+% Create the normalize center out full change comparison.
 ref = [8 1:8 1];
 
 [tempCO,tempP45,tempN45] = deal(nan(size(AD_co))); % Collect the average trajectories
@@ -96,14 +96,14 @@ for n = 2:9
     tempP45(ref(n),:) = tmpPOff(3,:);
 end
 
-g= (tempP45-tempCO)./tempP45;
-g2= (tempN45-tempCO)./tempN45;
+g = (tempP45-tempCO)./tempP45;
+g2 = (tempN45-tempCO)./tempN45;
 tempCO45 = .5*(g+g2);
 
-%% Create the histograms for no change, full change, unconstrained, and
+% Create the histograms for no change, full change, unconstrained, and
 % constrained data. Include the mean and standard deviation in each plot,
 % show the example session and list the p-values.
-infoTitle ={'Unconstrained','No Change','Full Change','Constrained'};
+infoTitle = {'Unconstrained','No Change','Full Change','Constrained'};
 collDat = {100*(ang_flow2intTarg_r-ang_unCon2intTarg_r)./ang_flow2intTarg_r,... % Unconstrained
     100*[datNoChange.cmpNorm_EL],... % No change (early vs late tt)
     100*median(tempCO45),... % Full Change (center out)
@@ -163,7 +163,7 @@ for n = 1:4
 end
 plt.matchAxis(Fhist);
 
-%% Plot the example session trajectory data
+% Plot the example session trajectory data
 for n = 1:length(exampleSess)
     % Find and load the data
     valid_files = util.findDirContents(data_save_loc, [exampleSess{n} '_int_targ.mat']);
@@ -171,7 +171,7 @@ for n = 1:length(exampleSess)
 
     scale = norm(IT.startTargPos(1:2))./100;
     C.targPos = C.targPos.*(scale/.9);
-    %% Plot the trajectory examples for the angle difference
+    % Plot the trajectory examples for the angle difference
     TD_tt_rot = IT.TD_tt_rot{1};
     startPos = IT.TDconstrained{1}(1).startPos';
 
@@ -186,7 +186,7 @@ for n = 1:length(exampleSess)
     plt.scaleBar(gca,20,'mm')
     FintAng.Name = sprintf('%s%s_initialAngle_unconstrained',IT.subject,IT.date);
 
-    %% Plot trajectories for different tube tube
+    % Plot trajectories for different tube tube
     % Setup figure
     nRow = 1;
     nCol = 4;
@@ -327,7 +327,8 @@ for n = 1:length(exampleSess)
         set(gca,'XTick',[],'YTick',[])
         title(titleStr{i}, 'FontSize', 16, 'FontWeight','Bold');
     end
-    %% 7D) Calculate the angle difference for the first constrained trials
+    
+    % 7D) Calculate the angle difference for the first constrained trials
     TD = IT.TDconstrained{end};
     TD = TD(ismember([TD.startPos]',startPos,'rows'));
 
@@ -342,7 +343,7 @@ for n = 1:length(exampleSess)
     plt.scaleBar(gca,20,'mm')
     FintAngTube.Name = sprintf('%s%s_initialAngle_constrained',IT.subject,IT.date);
 
-    %% 6F) The average trajectories of early vs late
+    % 6F) The average trajectories of early vs late
     posSes = find(ismember({datNoChange.date},exampleSess(n)));
 
     % Plot the ortho/opposite traces
@@ -371,7 +372,7 @@ for n = 1:length(exampleSess)
     F_EL.Name = sprintf('%s%s_Early_Vs_LateTraj',IT.subject,IT.date);
 end
 
-%% Save the figures
+% Save the figures
 if saveFig
     if isempty(savePathBase)
         savePathBase = uigetdir;
@@ -381,7 +382,7 @@ if saveFig
 end
 end
 
-%% Internal function
+% Internal function
 function [F] = plot_intAngComparisons(TD,TD_tt_rot,startPos,C)
 
 rotTD = TD_tt_rot.average;

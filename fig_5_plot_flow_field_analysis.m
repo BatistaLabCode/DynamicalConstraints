@@ -1,5 +1,5 @@
-function [F, F_ff, F_ffcb, h2] = fig_5_plot_FlowField_Analysis(dataLoc,varargin)
-%% ADD the header
+function [F, F_ff, F_ffcb, h2] = fig_5_plot_flow_field_analysis(dataLoc,varargin)
+% ADD the header
 %
 %
 %
@@ -7,7 +7,8 @@ function [F, F_ff, F_ffcb, h2] = fig_5_plot_FlowField_Analysis(dataLoc,varargin)
 %
 %
 % Created by Erinn Grigsby (erinn.grigsby@gmail.com)
-%% Load in the D structure and the data
+
+% Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session used in the paper.
 saveFig = 0;                % Determine whether or not to save the data,
                             % default is to not save the data (0).
@@ -84,7 +85,7 @@ for k = 1:size(dir_list,1)
         axis off
     end
 
-    %% Create the projected data
+    % Create the projected data
     dir_names = {dir_list(k,1).trajectory{1}, dir_list(k,2).trajectory{1}};
     TD_cell = cell(0);
     for n = 1:2 % Result and decoder loop
@@ -199,7 +200,8 @@ for k = 1:size(dir_list,1)
         'metric_str',{'mse'},'metric_plot_title',{'Mean squared error'},...
         'highlight_exp',[dir_list(k,1).subject, dir_list(k,1).dataset]);   
 end
-%% Save the figures
+
+% Save the figures
 if saveFig
     if isempty(savePathBase)
         savePathBase = uigetdir;

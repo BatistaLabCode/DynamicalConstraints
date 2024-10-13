@@ -1,6 +1,5 @@
-
-function [F] = fig_4_plot_View_vs_Projections(dataLoc,varargin)
-%% ADD the header
+function [F] = fig_4_plot_view_vs_projections(dataLoc,varargin)
+% ADD the header
 %
 %
 %
@@ -9,7 +8,7 @@ function [F] = fig_4_plot_View_vs_Projections(dataLoc,varargin)
 %
 % Created by Erinn Grigsby (erinn.grigsby@gmail.com)
 
-%% Load and choose the data
+% Load and choose the data
 exampleSess = {'20190719'}; % Figure 4 example session
 saveFig = 0;                % Determine whether or not to save the data,
                             % default is to not save the data (0).
@@ -69,7 +68,7 @@ for k = 1:size(dir_list,1)
         axis off
     end
 
-    %% Create the projected data
+    % Create the projected data
     dir_names = {dir_list(k,1).trajectory{1}, dir_list(k,2).trajectory{1}};
     for n = 1:2 % Result and decoder loop
         % Define decoder
@@ -159,7 +158,7 @@ for k = 1:size(dir_list,1)
     end 
     plt.matchAxis(ax)
 end
-%% Save the figures
+% Save the figures
 if saveFig
     if isempty(savePathBase)
         savePathBase = uigetdir;
