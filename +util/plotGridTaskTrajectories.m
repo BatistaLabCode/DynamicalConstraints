@@ -83,13 +83,13 @@ nRow = nPairs;
 % Setup figure
 axSp = 75;
 axW = 300;
-[fW, fH, Ax] = calcFigureSize(nRow,nCol,axW,axW,axSp);
+[fW, fH, Ax] = plt.calcFigureSize(nRow,nCol,axW,axW,axSp);
 
 fCtr = 1;
 F(fCtr) = figure('Position',[10 10 fW fH]);
 set(F(fCtr),'Name',[fName '_TargetPairs'])
 
-plotTitle([fName ': Target Pairs'])
+plt.plotTitle([fName ': Target Pairs'])
 plt.plotDatasetInfo(TD(1).subject,TD(1).date,[TD.trialID])
 
 % Normalize trajectory data
@@ -130,7 +130,7 @@ for i = 1:nPairs
     % Plot trajectories for a single direction
     for j = 1:2
         plot_no = (i-1) * nCol + j;
-        subplotSimple(nRow,nCol,plot_no,'Ax',Ax);
+        plt.subplotSimple(nRow,nCol,plot_no,'Ax',Ax);
         inds_j = all_inds{j};
         TD_j = TD_merged(inds_j);
         
@@ -175,7 +175,7 @@ for i = 1:nPairs
     % by their target codes, which are defined as the unique target
     % positions.
     plot_no = (i-1) * nCol + 3;
-    subplotSimple(nRow,nCol,plot_no,'Ax',Ax);
+    plt.subplotSimple(nRow,nCol,plot_no,'Ax',Ax);
     TDnorm.plot('color',colGray,'plotTrajectories',0,...
         'plotStates',plotStates,...
         'plotTargets',plotTargets,...
