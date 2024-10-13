@@ -76,7 +76,7 @@ for i = 1:n_metric
     p = [p_metric.p];
 
     % Plot
-    subplotSimple(n_row, n_col, i, 'Ax', Ax); hold on;
+    plt.subplotSimple(n_row, n_col, i, 'Ax', Ax); hold on;
     if plotSub
         for n = 1:length(unique(subAll))
             mask = find(ismember(subAll,uniSubj(n)));
@@ -159,7 +159,7 @@ if plotOverlap
 end
 
 % Plot title
-plotTitle(sprintf('Energy landscape :: Flow analysis :: Session summary :: %s',measMet))
+plt.plotTitle(sprintf('Energy landscape :: Flow analysis :: Session summary :: %s',measMet))
 
 % Save figure
 if ~isempty(fig_save_loc)
@@ -171,7 +171,7 @@ end
 % Function to generate error plot
 function plot_error(err_int_rot, err_pred_rot, p, plot_title, hlt_idx,marker,shift)
 
-if nargin ==5
+if nargin == 5
     marker = 'k';
     shift = 0;
 end
