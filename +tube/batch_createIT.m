@@ -34,7 +34,7 @@ for i = 1:n_ds
         fprintf('Processing dataset %s %s ... ', ...
             ds_info{i, 1}, ds_info{i, 2})
         
-        if ismember(ds_info{i,1},'Quincy')
+        if ismember(ds_info{i,1},{'Quincy','monkeyQ'})
             if str2num(ds_info{i,2})>20210101
                 centerPos = [-65 -330 0];
             else
