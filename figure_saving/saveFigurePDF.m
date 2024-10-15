@@ -10,7 +10,8 @@ function saveFigurePDF(F,saveDir,varargin)
 %
 % Author:       Alan D. Degenhart
 % Created:      2016.11.23
-% @ Alan Degenhart -- alan.degenhart@gmail.com
+% Copyright (C) by Alan Degenhart
+% Email: alan.degenhart@gmail.com
 
 % Optional arguments
 appendFiles = false;

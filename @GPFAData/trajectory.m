@@ -13,7 +13,7 @@ function trajectory(GP,varargin)
 %
 % Author:   Alan D. Degenhart
 % Created:  2017.02.16
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional argument default values

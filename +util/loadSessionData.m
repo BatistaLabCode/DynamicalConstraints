@@ -20,7 +20,7 @@
 %   P           BCI decoder associated with data structure
 %   result      Associated latent space parameter file.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [data,P,result] = loadSessionData(dir_list,varargin)

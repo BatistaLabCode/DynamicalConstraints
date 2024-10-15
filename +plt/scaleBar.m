@@ -8,7 +8,13 @@
 %   d       Length of scale bar
 %   uniStr  Unit string (e.g., 'mm')
 %
-% @ Alan Degenhart -- alan.degenhart@gmail.com
+% Optional Inputs:
+%   xScale    Display x scale bar
+%   yScale    Display y scale bar
+%   fontSize  font size
+%
+% Copyright (C) by Alan Degenhart
+% Email: alan.degenhart@gmail.com
 
 function scaleBar(ax, d, unitStr, varargin)
 

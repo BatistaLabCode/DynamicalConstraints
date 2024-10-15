@@ -15,9 +15,7 @@ function AX = subplotSimple(nRow,nCol,plotNo,varargin)
 %   AX      Axes handle
 %
 % Author:       Alan D. Degenhart
-% Date Created: 2016.05.21
-% Last Updated: 2016.05.21
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments

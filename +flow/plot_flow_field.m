@@ -5,9 +5,16 @@
 % Inputs:
 %   FF      Flow field results structure (from el.flow.calc_flow_field)
 %
+% Optional Inputs:
+%   C               Color match for standard plotting   
+%   arrow_size      Determine if and how big, an arrow should be plotted.
+%   pltGrid         Switch for plotting grid being on or off
+%
 % Outputs:
 %   H       Vector of figure handles
 %
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
 function [h] = plot_flow_field(FF,varargin)

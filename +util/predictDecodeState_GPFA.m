@@ -9,7 +9,6 @@
 %
 % Optional Inputs:
 %   spikeCountSrc Structure to collect the spiking data from
-%   xSpec         Latent space to manipulation (non-ortho or ortho)
 %   trunGPFA      Determine whether or not to truncate the trajectory data
 %   TT            Condition to apply orthonormalization
 %   predictPos    Update the cursor position
@@ -20,14 +19,13 @@
 % Outputs:
 %   TD          Updated TrajectoryData
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function TD = predictDecodeState_GPFA(TD, P, varargin)
 
 % Parse optional arguments
 spikeCountSrc = 'GPFA';  % Either 'GPFA' or 'decodeSpikeCounts' or 'binnedSpikes'
-xSpec = 'xorth';
 trunGPFA = 0; % Determine whether or not to truncate the trajectory data
 TT = [];
 predictPos = true;

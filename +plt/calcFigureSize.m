@@ -1,4 +1,6 @@
 function [fW,fH,Ax] = calcFigureSize(nRow,nCol,axW,axH,axSp,varargin)
+% Creates a figure to the exact specification of the number and size of the
+% subplots.
 %
 % Inputs:
 %   nRow        Number of rows
@@ -10,10 +12,10 @@ function [fW,fH,Ax] = calcFigureSize(nRow,nCol,axW,axH,axSp,varargin)
 % Optional Inputs:
 %   margin      Margins (px) 
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
-% Optional arguments
 
+% Optional arguments
 margin = 75; % Margin (px)
 
 assignopts(who, varargin);

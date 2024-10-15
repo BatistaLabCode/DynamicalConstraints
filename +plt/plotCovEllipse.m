@@ -15,7 +15,7 @@ function p = plotCovEllipse(M,C,col,varargin)
 %  y = u * x, so cov(y) = u*cov(x)*u'
 %cov_y = proj_vecs * cov_matrix * proj_vecs';
 %
-% Authors:      Alan Degenhart and Erinn Grigsby
+% Authors:      Erinn Grigsby and Alan Degenhart
 % Emails:       erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional Inputs

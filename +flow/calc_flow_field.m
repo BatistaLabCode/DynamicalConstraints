@@ -1,4 +1,22 @@
 function [FF] = calc_flow_field(TD, d_grid, cond_str, varargin)
+% Calcuates the flow field of each unique start and end target pair. IE one
+% flow field from A to B and another flow field for target B to A.
+%
+% Inputs:
+%   dataLoc    Paths for the main data folder
+%
+% Optional Inputs:
+%   min_pts_per_voxel     Minimum number of voxels to include for
+%                           calculations
+%   ax_lim                Grid size
+%   delta_hist            Distance between edges.
+% 
+% Outputs:
+%   FF               Flow field structure for a given projection
+%
+% Created by Erinn Grigsby and Alan Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Parameters
 min_pts_per_voxel = 3;  % Define the minimum number of datapoints per voxel to use

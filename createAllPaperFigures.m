@@ -6,10 +6,24 @@
 % function. Review the code of each figure to determine the option options
 % that you can modify.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% NOTE for fig_6_fig_7: That for plots where they are plotting a subset of
+% trial trajectories. You can adjust the number trials for plotted using the
+% variable <trialsPerCondition>. Also when selecting the subset of trials
+% there are options to chose. 1) Use the hardcoding values that will
+% exactly plot the trials in the paper. Vaiabile <useExample>. 2) Fix the 
+% random number generator for a consistenet permutation for trial 
+% subselection. Variable <setRandSeed>. 3) Let the set generation be 
+% unfixed, meaning that each time you run, you will likely recieve a 
+% different set of trials.
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 clc, clear, close all
+
+% Add the paper code to the path
+pathName = pwd;
+addpath(genpath(pathName))
 
 % VARABLES to modify
 plotFig = []; % Figures you would like plot
@@ -23,6 +37,7 @@ end
 figTime = [];
 tic
 strTime = toc;
+
 % Create the plots for figure 2
 if ismember(2,plotFig)
     [F2] = fig_2_two_target(dataLoc, ...
@@ -53,7 +68,7 @@ end
 % Create the plots for figure 5
 if ismember(5,plotFig)
     tic,
-    [F5, F5_ff, F5_ffcb, F5_stat] = fig_5_plot_flow_field_analysis(dataLoc, ...
+    [F5_ff, F5_stat] = fig_5_plot_flow_field_analysis(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime = [figTime; toc];
 end

@@ -16,7 +16,7 @@ function TD = applyProjection(TD,P,varargin)
 %           orthonormalized (xorth, default)
 %   savePos Saves the orthonormalized projection to the cursor position.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Parse optional arguments

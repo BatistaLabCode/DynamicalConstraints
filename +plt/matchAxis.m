@@ -3,7 +3,7 @@ function [axObj,axLim] = matchAxis(graphObj,varargin)
 % Enables you to automatically match the axis limits of different figures
 % and axes.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments

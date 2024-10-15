@@ -7,9 +7,12 @@ function [TD,targInfo] = preprocessGridTaskTrajData(TD,varargin)
 % that the resultant data is normalized appropriately and has the correct
 % target code info.
 %
+% Optional Input:
+%   centerPos:      Location of the center ofthe workspace.
+%
 % Author:       Alan D. Degenhart
-% Created:      2016.11.24
-% Updated:      <see SVN log>
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments
 centerPos = [-15 -450 0];

@@ -6,7 +6,8 @@ function [F,h,p] = fig_4_early_vs_late_two_target_trajectories_comparisons(dataL
 %
 %
 %
-% Created by Erinn Grigsby (erinn.grigsby@gmail.com)
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Create a comparison of the early vs late trajectories for the rotated
 % mapping, two target task.

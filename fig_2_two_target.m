@@ -19,7 +19,7 @@ function [F] = fig_2_two_target(dataLoc,varargin)
 %   F               Figure with 4 panels of trajectories.
 %
 % Created by Erinn Grigsby
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Load in the D structure and the data

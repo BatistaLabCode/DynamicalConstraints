@@ -6,6 +6,9 @@ function plot(TD,varargin)
 % inside of the window, the window requirements have been met.  We
 % arbitrarily set the size of the cursor and target *objects* to reflect
 % the desired feedback to the animal.
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Set default values for optional arguments
 colorMap = 'hsv';
