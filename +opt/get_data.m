@@ -20,7 +20,7 @@
 % Outputs:
 %   P   Structure with parameterized data passed to the optimization.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [P,D] = get_data(X, cond_code, varargin)
@@ -134,9 +134,9 @@ end
 pStart = [D.pStart];
 pEnd = [D.pEnd];
 tcMask = cond_code == 1;
-pAB_Start = nanmean(pStart(tcMask));
+pAB_Start = mean(pStart(tcMask),'omitnan');
 tcMask = cond_code == 2;
-pBA_Start = nanmean(pStart(tcMask));
+pBA_Start = mean(pStart(tcMask),'omitnan');
 pCenter = mean([pAB_Start pBA_Start]);
 
 % Find closest point to dP = 0

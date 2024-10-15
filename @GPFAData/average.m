@@ -14,7 +14,7 @@ function GPavg = average(GP,varargin)
 %
 % Authors:  Alan Degenhart and Erinn Grigsby
 % Created:  2017.02.16
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
@@ -94,9 +94,9 @@ for i = 1:nTrials
 end
 
 % Average across trials
-xSm = nanmean(xSmMat,3);
-xOrth = nanmean(xOrthMat,3);
-y = squeeze(nanmean(yMat,3));
+xSm = mean(xSmMat,3,'omitnan');
+xOrth = mean(xOrthMat,3,'omitnan');
+y = squeeze(mean(yMat,3,'omitnan'));
 nanMat = xSmMat(1,:,:);
 nanMat = squeeze(nanMat);
 nTrials = sum(~isnan(nanMat),2);

@@ -29,7 +29,7 @@ function TDavg = average(TD,varargin)
 %                       Otherwise the start or end of the trial.
 %
 % Authors:  Alan Degenhart and Erinn Grigsby
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments
@@ -128,7 +128,7 @@ for i = 1:nTarg
                 end
                 
                 % Average trajectory data
-                trajData = squeeze(nanmean(trajData,1));
+                trajData = squeeze(mean(trajData,1,'omitnan'));
                 
             case 'samp' % Do not time warp
                 trajData = nan(nTrials,nDim,nSampMax);
@@ -166,7 +166,7 @@ for i = 1:nTarg
         
         % Put data into new KinematicData object
         KD = KinematicData();
-        KD.time = [1:size(trajData,2)]';
+        KD.time = (1:size(trajData,2))';
         KD.pos = trajData';
         KD.source = kinSource{j};
         TDavg(i) = TDavg(i).setKinematicData(KD);
