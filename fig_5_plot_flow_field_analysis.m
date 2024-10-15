@@ -59,7 +59,7 @@ load(fullfile(dataLoc,'publicationQualitySessions.mat'));
 D = D(ismember({D.dataset},exampleSess));
 dir_list = db.get_task_datasets(D, {'tt_int','tt_rot'});
 
-data_save_loc = fullfile(dataLoc,'flowAnalysis\mat'); % Where the flow field data is saved.
+data_save_loc = fullfile(dataLoc,'flowAnalysis','mat'); % Where the flow field data is saved.
 
 % Iterate through the different conditions.
 for k = 1:size(dir_list,1)

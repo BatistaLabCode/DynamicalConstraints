@@ -63,7 +63,7 @@ load(fullfile(dataLoc,'initialAng_tt_vs_uncon+con_Simplified.mat'))
 load(fullfile(dataLoc,'centerOut_AngleAnalysisData_Signed.mat'))
 
 % Load the location where the intermediate target data is saved.
-data_save_loc = fullfile(dataLoc,'ConstrainedPath\mat\int_targ_data');
+data_save_loc = fullfile(dataLoc,'ConstrainedPath','mat','int_targ_data');
 
 % Creates the histogram plots for figure 6 and figure 7
 % Create normIntAng variable
