@@ -25,7 +25,7 @@ function [F2d,F,h2di,p2di] = fig_3(dataLoc,varargin)
 %   p2di              p-value for t-test for the 2D space
 %
 % Created by Erinn Grigsby
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
@@ -38,7 +38,7 @@ savePathBase = [];          % Where to save the figures.
 colorMode = 'specified';    % Trajectory color mode to use
 plotPreOnset = false;       % Plot pre-onset data
 xSpec = 'xorth';            % Plot the orthonormalize GPFA space
-markerScale = [0 1.5];           % Scale of the start and end trajectory markers
+markerScale = [0 1.5];      % Scale of the start and end trajectory markers
 markSize = [3 10];          % Size of the midpoint markers (ind trls and mean)
 plotDim = [1 2];            % Which dimensions are being plotting
 
@@ -174,7 +174,7 @@ histogram(dP_WS(:,2),'BinWidth',0.25,'FaceColor',colSM)
 plot(mean(dP_WS(:,1)),0,'kv','MarkerFaceColor',colIM)
 plot(mean(dP_WS(:,2)),0,'kv','MarkerFaceColor',colSM)
 xlabel("d'"),ylabel("# Experiments")
-title("Intuitive Mapping control trials - Workspace")
+title("Intuitive Mapping control trials - Workspace",'Interpreter','none')
 ylim([0 30])
 axis square
 legend('IM trials-decoder_Int','IM trials-decoder_SM',...

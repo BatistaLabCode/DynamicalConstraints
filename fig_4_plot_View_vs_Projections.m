@@ -6,7 +6,8 @@ function [F] = fig_4_plot_view_vs_projections(dataLoc,varargin)
 %
 %
 %
-% Created by Erinn Grigsby (erinn.grigsby@gmail.com)
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Load and choose the data
 exampleSess = {'20190719'}; % Figure 4 example session
@@ -36,7 +37,6 @@ for k = 1:size(dir_list,1)
     [TD_rot, P_rot, result_rot] = util.loadSessionData(dir_list(k,2));
 
     % Normalize the data
-    centerPos = [0 0 0];
     uniTD_intPos = unique([TD_int.startPos]','rows');
     uniTD_rotPos = unique([TD_rot.startPos]','rows');
     if ~ismember(mean(unique([TD_rot.startPos]','rows')),centerPos)
@@ -94,12 +94,12 @@ for k = 1:size(dir_list,1)
                     startMarker = 'o';
                     markerSize = [1 10];
                     plotTargets = 1;
-                    condStr = 'IM trials, IM projection';
+                    condStr = 'MI projection feedback trials, MI projection';
                 else
                     startMarker = [];
                     markerSize = [0.1 10];
                     plotTargets = 0;
-                    condStr = 'IM trials, SM projection';
+                    condStr = 'MI projection feedback trials, SM projection';
                 end
             else
                 TD = TD_rot;
@@ -108,12 +108,12 @@ for k = 1:size(dir_list,1)
                     startMarker = 'o';
                     markerSize = [1 10];
                     plotTargets = 1;
-                    condStr = 'SM trials, SM projection';
+                    condStr = 'SM projection feedback trials, SM projection';
                 else
                     startMarker = [];
                     markerSize = [0.1 10];
                     plotTargets = 0;
-                    condStr = 'SM trials, IM projection';
+                    condStr = 'SM projection feedback trials, IM projection';
                 end
             end
 
