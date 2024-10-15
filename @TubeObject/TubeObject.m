@@ -27,5 +27,6 @@ classdef TubeObject < HSTData
        TU = setTubeCode(TU);
        TU = setCondCode(TU,tC);
        containsTD = calcTubeContainment(TU,TD);
+       containsTD = calcContainment(TU,varargin);
    end
 end

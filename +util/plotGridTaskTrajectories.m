@@ -5,9 +5,8 @@ function F = plotGridTaskTrajectories(TD,fName,varargin)
 %   TD      TrajectoryData object 
 %
 % Author:           Alan D. Degenhart
-% Date Created:     2015/07/07
-% Date Updated:     2016/08/05
-% Last Update:      Function now takes TrajectoryData object as an input
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 centerPos = [];
 plotIntTarg = false;
@@ -60,7 +59,7 @@ end
 tcAll = util.pos2targetCode(allPos,'centerPos',centerPos);
 tcStart = tcAll(1:size(startPos,1));
 tcEnd = tcAll(size(startPos,1) + 1:end);
-[uniTC_all,IA] = unique(tcAll);
+[~,IA] = unique(tcAll);
 uniTargPos_all = allPos(IA,:); % Mapping from target code to position
 
 % Find all target pairs.  Here we assume that the task is *always* an
@@ -71,8 +70,6 @@ targPairs = sort(uniTargComb,2);
 targPairs = unique(targPairs,'rows');
 
 % Setup plot colors
-col = [0 .6 .85;.8 .15 0];
-colAvg = [0 .6 .85;.8 .15 0];
 colGray = ones(1,3)*.75;
 
 % Determine plot arrangement
