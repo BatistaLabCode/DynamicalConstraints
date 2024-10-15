@@ -4,6 +4,8 @@
 % Usage:
 %   flow.batch_create_session_figs()
 %
+% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
 function h = plot_all_session_summary(varargin)
@@ -12,7 +14,9 @@ function h = plot_all_session_summary(varargin)
 highlight_exp = [];
 data_save_loc = [];
 fig_save_loc = [];
+pltLegend = 1;
 plotOverlap = 0;
+xTextOffset = 0.6; %0.025
 measMet = 'median'; % Will either plot the median and mean metric values
 
 % Define metrics to analyze
@@ -47,7 +51,7 @@ if plotOverlap
 else
     n_col = n_metric;
 end
-axSz = 300;
+axSz = 400;
 axSp = 75;
 [fW,fH,Ax] = plt.calcFigureSize(n_row,n_col,axSz,axSz,axSp);
 
@@ -62,7 +66,7 @@ p_vals = [stats.pvals];
 
 % Get subject information
 subAll = {FR.subject};
-uniSubj = {'Earl','Dwight','Quincy'};
+uniSubj = {'monkeyE','monkeyD','monkeyQ'};
 marker = {'ko','md','cs'};
 plotSub = 1;
 % Iterate over error metrics
@@ -82,14 +86,16 @@ for i = 1:n_metric
             mask = find(ismember(subAll,uniSubj(n)));
             if ismember(hlt_idx,mask)
                 hlt_idxTmp = find(ismember(mask,hlt_idx));
-                plot_error(err_int_rot(mask), err_pred_rot(mask),...
-                    p(mask),metric_plot_title{i},hlt_idxTmp,marker{n},n)
+                [ptsLab(n),LEGEND{n}] = plot_error(err_int_rot(mask), err_pred_rot(mask),...
+                    p(mask),metric_plot_title{i},hlt_idxTmp,marker{n},n,~pltLegend);
             else
-                plot_error(err_int_rot(mask), err_pred_rot(mask),...
-                    p(mask),metric_plot_title{i},[],marker{n},n)
+                [ptsLab(n),LEGEND{n}] = plot_error(err_int_rot(mask), err_pred_rot(mask),...
+                    p(mask),metric_plot_title{i},[],marker{n},n,~pltLegend);
             end
+            % Add the monkey ID to the legend
+            LEGEND{n} = [uniSubj{n} ', ' LEGEND{n}];
         end
-
+        
         % Get axis limits
         x_lim = get(gca, 'XLim');
         y_lim = get(gca, 'YLim');
@@ -99,17 +105,17 @@ for i = 1:n_metric
 
         % Add the N value information here
         font_size = 14;
-        text(ax_lim(1) + diff(ax_lim) * 0.025, ax_lim(2), ...
+        text(ax_lim(1) + diff(ax_lim) * xTextOffset, ax_lim(2), ...
             sprintf('N = %d sessions', length(p)), ...
             'HorizontalAlignment', 'left', ...
             'VerticalAlignment', 'top', ...
             'FontSize', font_size)
     else
-        plot_error(err_int_rot, err_pred_rot, p, metric_plot_title{i}, hlt_idx)
+        [ptsLab(n),LEGEND{n}] = plot_error(err_int_rot, err_pred_rot, p, metric_plot_title{i}, hlt_idx)
     end
 
 end
-
+legend(ptsLab,LEGEND,'location','best')
 
 % Plot number of overlap points
 if plotOverlap
@@ -126,10 +132,10 @@ if plotOverlap
             mask = find(ismember(subAll,uniSubj(n)));
             if ismember(hlt_idx,mask)
                 hlt_idxTmp = find(ismember(mask,hlt_idx));
-                plot_error(n_valid_int_rot(mask), n_valid_pred_rot(mask),...
+                [ptsLab(n),LEGEND{n}] = plot_error(n_valid_int_rot(mask), n_valid_pred_rot(mask),...
                     p(mask),'Number of overlap points', hlt_idxTmp,marker{n},n)
             else
-                plot_error(n_valid_int_rot(mask), n_valid_pred_rot(mask),...
+                [ptsLab(n),LEGEND{n}] = plot_error(n_valid_int_rot(mask), n_valid_pred_rot(mask),...
                     p(mask),'Number of overlap points', [],marker{n},n)
             end
         end
@@ -142,7 +148,7 @@ if plotOverlap
         ax_lim(2) = max([x_lim, y_lim]);
 
         % Add the N value information here
-        text(ax_lim(1) + diff(ax_lim) * 0.025, ax_lim(2), ...
+        text(ax_lim(1) + diff(ax_lim) * xTextOffset, ax_lim(2), ...
             sprintf('N = %d sessions', length(p)), ...
             'HorizontalAlignment', 'left', ...
             'VerticalAlignment', 'top', ...
@@ -169,11 +175,17 @@ end
 
 
 % Function to generate error plot
-function plot_error(err_int_rot, err_pred_rot, p, plot_title, hlt_idx,marker,shift)
+function [ptsLab,LEGEND]  = plot_error(err_int_rot, err_pred_rot, p, plot_title, hlt_idx,marker,shift,pltText)
 
 if nargin == 5
     marker = 'k';
     shift = 0;
+    pltText = 1;
+elseif nargin == 6
+    shift = 0;
+    pltText = 1;
+elseif nargin == 7
+    pltText = 1;
 end
 font_size = 14;
 
@@ -183,7 +195,7 @@ p_mask = p < 0.05;
 % Plot significant and non-significant points
 scatter(err_int_rot(~p_mask), err_pred_rot(~p_mask), 10, marker, ...
     'MarkerFaceColor', 'none')
-scatter(err_int_rot(p_mask), err_pred_rot(p_mask), 10, marker, ...
+ptsLab = scatter(err_int_rot(p_mask), err_pred_rot(p_mask), 10, marker, ...
     'MarkerFaceColor', 'flat')
 
 % Get axis limits
@@ -226,12 +238,15 @@ end
 % Plot diagonal and number of session
 plot(ax_lim, ax_lim, 'k--')
 n = length(p);
-text(ax_lim(1) + diff(ax_lim) * 0.025, ...
-    ax_lim(2) - diff(ax_lim) * 0.05*(1+shift), ...
-    sprintf('N_{sig} = %d/%d', sum(p_mask),n), ...
-    'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'top', ...
-    'FontSize', font_size)
+if pltText
+    text(ax_lim(1) + diff(ax_lim) * 0.6, ...
+        ax_lim(2) - diff(ax_lim) * 0.05*(1+shift), ...
+        sprintf('N_{sig} = %d/%d', sum(p_mask),n), ...
+        'HorizontalAlignment', 'left', ...
+        'VerticalAlignment', 'top', ...
+        'FontSize', font_size);
+end
+LEGEND = sprintf('N_{sig} = %d/%d', sum(p_mask),n);
 
 title(plot_title, 'FontSize', font_size)
 xlabel('Intuitive vs rotated error', 'FontSize', font_size)
