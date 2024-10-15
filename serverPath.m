@@ -12,16 +12,16 @@ function [dataLoc, exSessDataLoc, saveFigLoc] = serverPath
 % exSessDataLoc = fullfile(dataLoc,'Example Sessions');
 % saveFigLoc = 'F:\Erinn\EL_NatNeuro_2024_Figures';
 %
-% Copyright (c) by Alan Degenhart and Erinn Grigsby
-% Emails: alan.degenhart@gmail.com or erinn.grigsby@gmail.com
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-dataLoc = 'C:\Users\aland\data\EL_NatNeuro_2024_data';
+dataLoc = 'E:\Erinn\EL_NatNeuro_2024_data';
 exSessDataLoc = fullfile(dataLoc,'Example Sessions');
-saveFigLoc = 'C:\Users\aland\data\EL_NatNeuro_2024_Figures';
+saveFigLoc = 'E:\Erinn\EL_NatNeuro_2024_Figures';
 
 % Check if the dataLoc folder exists, if not give a warning and prompt for 
 % folder location
-check = 1; % Check is the user exited the folder gui
+check = 1; % Checks if the user exited the folder gui
 while exist(dataLoc,'dir') ~= 7 && check ~= 0
     warning(['Location provided for dataLoc does not exist.' ...
         ' Please provide a valid folder location'])
@@ -31,7 +31,7 @@ end
 
 % Check if the exSessDataLoc folder exists, if not give a warning and 
 % prompt for  folder location
-check = 1; % Check is the user exited the folder gui
+check = 1; % Checks if the user exited the folder gui
 while exist(exSessDataLoc,'dir') ~= 7 && check ~= 0
     warning(['Location provided for exSessDataLoc does not exist.' ...
         ' Please provide a valid folder location'])
@@ -42,7 +42,7 @@ end
 
 % Check if the saveFigLoc folder exists, if not give a warning and prompt for 
 % folder location
-check = 1; % Check is the user exited the folder gui
+check = 1; % Checks if the user exited the folder gui
 while exist(saveFigLoc,'dir') ~= 7 & ~isempty(saveFigLoc) && check ~= 0
     warning(['Location provided for saveFigLoc does not exist.' ...
         ' Please provide a valid folder location'])
