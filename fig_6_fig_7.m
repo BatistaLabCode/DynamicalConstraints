@@ -1,25 +1,55 @@
 function [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc,varargin)
-% ADD the header
+% [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc) Plots the 
+% SepMax trajectories for the intermediate target task and the constrained
+% target task. Additionally, it plots the summary histograms showing the
+% change in initial angel for different conditions.
 %
+% Inputs:
+%   dataLoc    Paths for the main data folder
 %
+% Optional Inputs:
+%   exampleSess         The example session used in the paper (fig6/7).
+%   saveFig             Determine whether or not to save the data
+%   savePathBase        Where to save the figures.
+%   C                   Colormap struct to use
+%   alpha               Alpha for statistical tests (early vs late comparison)
+%   trlCnt              Number of trials to use for early vs late comparison
+%   plotExamples        Plots the example sessions on the histograms
+%   avgMode             Average method for the trajectories
+%   plotScale           Axis Limits
+%   trialsPerCondition  Number of trials to subselect for plotting
+%   setRandSeed         Fix the random number generator for a consistenet
+%                           permutation for trial subselection.
+%   useExample          Use the hardcode example trajectories (what is in
+%                           the figure)
 %
+% Outputs:
+%   Fhist               Figure histogram of initial angle summaries for all
+%                           sessions and animals.
+%   FintAng             Figure initial angle intermediate target task
+%   Ftube               Figure trial examples of trajectories for the tube
+%                           task.
+%   FintAngTube         Figure Initial angle tube example
+%   F_EL                Figure Early vs Late trajectory example
 %
-%
-%
-% Created by Erinn Grigsby (erinn.grigsby@gmail.com)
+% Created by Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
 
 % Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session used in the paper (fig2).
 saveFig = 0;                % Determine whether or not to save the data,
 % default is to not save the data (0).
 savePathBase = [];          % Where to save the figures.
+C = util.defineTaskColormap('bc_rot');  % Colormap struct. Default bc_rot
 plotExamples = 0; % Plots the example sessions on the histograms
 alpha = 0.05; % Alpha for statistical tests (early vs late comparison)
 trlCnt = 20; % Number of trials to use for early vs late comparison
 
 plotScale = 220;               % Axis Limits plotScal*[-1 1 -1 1]
 avgMode = 'samp';              % Average method for the trajectories.
-C = util.defineTaskColormap('bc_rot');  % Colormap struct. Default bc_rot
+
 trialsPerCondition = 10;     % Allow for subselection of trials
 setRandSeed = 9; % Allow to fix the random permutation for trial subselection.
 useExample = 1;              % Use the hardcode example trajectories
@@ -127,7 +157,7 @@ for n = 1:4
     xline([0 100],'k','LineStyle','--','LineWidth',2)
     xline(mean(collDat{n},'omitnan'),'LineStyle','-')
     xline(mean(collDat{n},'omitnan') + std(collDat{n},'omitnan')*[-1 1],'LineStyle',':')
-    LEGEND = {'initial angle','o','100',...
+    LEGEND = {infoTitle{n},'','',...
         ['mean =' num2str(mean(collDat{n},'omitnan'))],...
         ['std =' num2str(std(collDat{n}))],''};
 
@@ -302,7 +332,8 @@ for n = 1:length(exampleSess)
             TDavg{i}.plot('color',col.tube(1,:),'plotStartTarg',0, ...
                 'plotEndTarg',0)
         end
-        TDavg{i}.plot('color',col.tube(i+1,:),'plotTargets',0,'lineWidth',3)
+        TDavg{i}.plot('color',col.tube(i+1,:),'plotTargets',0,...
+            'endMarker','arrow','lineWidth',3)
         IT.tubeObject(i).plot('color', col.tube(i+1,:),'lineSpec', '-');
 
         % Get line object handle and legend text
@@ -389,14 +420,6 @@ rotTD = TD_tt_rot.average;
 rotTDplt = TD_tt_rot.average('avgMode','samp');
 
 mask = ismembertol([rotTD.startPos]',startPos,1e-6,'ByRows',true);
-
-% Calculate the flow and againstFlow trajectories using the time-warped
-% average
-flowTraj = diff(rotTD(mask).brainKin.pos([1 25],:))';
-flowTraj = flowTraj./norm(flowTraj);
-
-antFlowTraj = diff(rotTD(~mask).brainKin.pos([end end-19],:))';
-antFlowTraj = antFlowTraj./norm(antFlowTraj);
 
 % Calculate the average trajectory
 TD = TD(ismember([TD.startPos]',startPos,'rows'));
