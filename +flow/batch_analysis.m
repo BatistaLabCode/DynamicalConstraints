@@ -4,7 +4,10 @@
 %   flow.batch_analysis
 %
 % This function iterates over all two-target intuitive and rotated datasets
-% and runs the 'flow.main_analysis' function.
+% and runs the 'flow.main_analysis' function. This will create a FlowResult
+% function for every valid session in the exSessDataLoc from serverPath.
+%
+% See: flow.main_analysis for description of the FlowResult structure.
 %
 % Optional Inputs:
 %   data_save_loc  Location to save flow field batch data.
@@ -35,7 +38,7 @@ end
 % Collect the directory information for valid files.
 dir_list = db.get_task_datasets(D, task_list);
 
-% Determine the number of sessions with a volid location for the data
+% Determine the number of sessions with a valid location for the data
 mask = cellfun(@(x) length(x)>0,[dir_list(:,1).trajectory]);
 dir_list = dir_list(mask,:);
 
