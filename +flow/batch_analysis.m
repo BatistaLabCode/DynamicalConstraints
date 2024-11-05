@@ -5,7 +5,7 @@
 %
 % This function iterates over all two-target intuitive and rotated datasets
 % and runs the 'flow.main_analysis' function. This will create a FlowResult
-% function for every valid session in the exSessDataLoc from serverPath.
+% structure for every valid session in the exSessDataLoc from serverPath.
 %
 % See: flow.main_analysis for description of the FlowResult structure.
 %
