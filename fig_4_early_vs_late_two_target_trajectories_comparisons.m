@@ -1,10 +1,32 @@
 function [F,h,p] = fig_4_early_vs_late_two_target_trajectories_comparisons(dataLoc,varargin)
-% ADD the header
+% [F,h,p] = fig_4_early_vs_late_two_target_trajectories_comparisons(dataLoc) 
+% Plots the histograms of early vs late d' values for all sessions of the
+% separation-maximizing two target task and shuffled calculation of d' for
+% all session. Also plots example trajectories for the early two-target 
+% trials and the late two-target trials from a single session.
 %
+% Inputs:
+%   dataLoc    Paths for the main data folder
 %
+% Optional Inputs:
+%   exampleSess         The example session used in the paper (fig4).
+%   saveFig             Determine whether or not to save the data
+%   savePathBase        Where to save the figures.
+%   plotScale           Axis Limits
+%   colShuff            Color map for the shuffle data
+%   colSM               Color map for the early vs late data
+%   markerSize          Marker size
+%   condIdx             Condition that we are running the comparison on:
+%                         There are two possible pairings:
+%                         1) IM trial - IM proj
+%                         2) SM trial - SM proj [Default]
 %
-%
-%
+% Outputs:
+%   F                   Figures for the histograms and the example trials
+%   h                   Hypothesis rejection value for comparing the 
+%                           shuffle and early vs late sessions.
+%   p                   P-value for comparing the shuffle and early vs
+%                           late sessions.
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
@@ -16,13 +38,12 @@ saveFig = 0;                % Determine whether or not to save the data,
                             % default is to not save the data (0).
 savePathBase = [];          % Where to save the figures.
 plotScale = 180;            % Axis scale for the plot panels
-colShuff = [180 178 180]./255;
-colSM = [219 240 245]./255;
-markerSize = 2;
-condIdx = 3; % The condition that we are running the comparison for, there 
-             % there are four possible pairings, 1) IM trial - IM proj, 
-             % 2) IM trial - SM proj, 3) SM trial - SM proj, and 4) SM
-             % trial - IM proj. The default for this function (3).
+colShuff = [180 178 180]./255; % Color map for the shuffle data
+colSM = [219 240 245]./255;    % Color map for the early vs late data
+markerSize = 2;                % Marker size
+condIdx = 2; % The condition that we are running the comparison for, there 
+             % are two possible pairings, 1) IM trial - IM proj and
+             % 2) SM trial - SM proj. The default for this function (2).
 
 % Assign the optional inputs
 assignopts(who,varargin);
@@ -135,7 +156,7 @@ for n = 1:2
     axis on
     set(gca,'XTick',[],'YTick',[])
 end
-plt.matchAxis(F(2))
+plt.matchAxis(F(2));
 plt.plotTitle(['Example Session: ' exampleSess])
 
 % Save the figures
