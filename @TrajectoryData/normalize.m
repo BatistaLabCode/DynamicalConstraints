@@ -1,16 +1,20 @@
 function TD = normalize(TD,explicitStartPos)
 % normalize         Normalize trajectory data
 %
+% Usage:
+%   TD = TD.normalize(explicitStartPos)
+%
 % This function sets the target code information and normalizes trajectory
 % data relative to the center target.  Unique target code IDs are
 % determined for each target position.
 %
-% Author:  Alan D. Degenhart
-% Date Created: 2015/01/14
-% Last Updated: 2016/06/21
-% Last Update:  Updated to normalize both brain and hand position data.
+% Inputs:
+%   TD                  TrajectoryData class
+%   explicitStartPos    Defined starting position, if not provided then the
+%                           start position is calculated
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Author:  Alan D. Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 explicitStartPosDefined = 0;
@@ -70,7 +74,7 @@ for i = 1:nTrials
     
     % Get kinematic data.  Do this for both the hand data and the brain
     % data.
-    kinSource = {'brain','hand','force','perturb'};
+    kinSource = {'brain'};
     for j = 1:length(kinSource)
         KD = TD(i).getKinematicData('kinSource',kinSource{j});
         
@@ -90,10 +94,6 @@ for i = 1:nTrials
             TD(i) = TD(i).setKinematicData(KD);
         end
     end
-    
-    % Normalize the position data for the primary cursor
-    primePos = TD(i).pos;
-    TD(i).pos = primePos - repmat(startPos(i,1:size(primePos,2)),size(primePos,1),1);
     
     targPos(i,:) = tempTargPos;
     
