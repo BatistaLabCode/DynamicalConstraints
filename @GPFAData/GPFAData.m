@@ -1,4 +1,4 @@
-classdef GPFAData < HSTData
+classdef GPFAData 
     properties
         % Data
         trialId = [];       % Unique trial number

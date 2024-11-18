@@ -1,4 +1,4 @@
-classdef TubeObject < HSTData
+classdef TubeObject
    properties
        % Defined
        name = [];           % Name of tube

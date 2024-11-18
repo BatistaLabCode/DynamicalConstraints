@@ -1,4 +1,4 @@
-classdef KinematicData < HSTData
+classdef KinematicData 
 % Kinematic Data class
 %
 % This class contains time-varying kinematic data, including position,
