@@ -3,38 +3,28 @@ function KD = getKinematicData(TD,varargin)
 %
 % Get kinematic data method for TrajectoryData class
 %
-% Author:  Alan D. Degenhart
-% Date Created: 2016/06/21
-% Last Updated: 2016/06/21
-% Last Update:  Initial version of function
+% Usage:
+%   KD = TD.getKinematicData()
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Inputs:
+%   TD             TrajectoryData class
+%
+% Optional Inputs:
+%   kinSource      Kinematic source to plot ('brain')
+%
+% Ouputs:
+%   KD             KinematicData class
+%
+% Author:  Alan D. Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-kinSource = [];         % Kinematic source to plot ('hand' or 'brain')
+kinSource = 'brain';         % Kinematic source to plot ('brain')
 
 % Parse optional agruments
 assignopts({'kinSource'},varargin);
 
-% Determine if kinematic source is specified or should be determined
-% automatically
-useDefaultKinSource = true;
-if ~isempty(kinSource)
-    useDefaultKinSource = false;
-end
-
-% Figure out the class of the desired kinematic data source.  Assume this
-% is the same for all trials in the TrajectoryData object
-if useDefaultKinSource
-    switch TD(1).controlSource
-        case {'Neural Decoder','Auto-monkey'}
-            kinSource = 'brain';
-        case {'Phasespace'}
-            kinSource = 'hand';
-        case {'Force Cursor'}
-            kinSource = 'force';
-    end
-end
+% Create a template for the KinematicData structure
 srcStr = [kinSource 'Kin'];
 KDtemp = TD(1).(srcStr);
 
@@ -42,8 +32,6 @@ KDtemp = TD(1).(srcStr);
 nTrials = length(TD);
 KD = repmat(KDtemp,nTrials,1);
 for i = 1:nTrials
-    % Get kinematic data.  This can be either the hand position or the
-    % brain-controlled cursor position.  By default, the cursor being
-    % used for task progression is plotted.
+    % Get kinematic data. This will be the brain-controlled cursor position.
     KD(i) = TD(i).(srcStr);
 end
