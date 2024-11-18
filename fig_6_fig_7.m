@@ -40,7 +40,7 @@ function [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc,varargin)
 % Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session used in the paper (fig2).
 saveFig = 0;                % Determine whether or not to save the data,
-% default is to not save the data (0).
+                            %   default is to not save the data (0).
 savePathBase = [];          % Where to save the figures.
 C = util.defineTaskColormap('bc_rot');  % Colormap struct. Default bc_rot
 plotExamples = 0; % Plots the example sessions on the histograms
@@ -426,6 +426,8 @@ TD = TD(ismember([TD.startPos]',startPos,'rows'));
 aTD = TD.average('avgMode','samp');
 
 F = figure; hold on
+rotTDplt(~mask).plot('plotTrajectories',0,'ColMat',C,'plotTargNum',0,...
+    'plotStartTarg',1,'plotEndTarg',0);
 rotTDplt(mask).plot('trajColorWeight',.5,'ColMat',C,'endMarker','arrow',...
     'lineWidth',4,'plotTargNum',0,'plotStartTarg',1,'plotEndTarg',0);
 aTD.plot('color',[.7 .7 .7],'plotTargNum',0,'endMarker','arrow','lineWidth',4)
