@@ -1,9 +1,20 @@
 % calcMoveOnset     Calculate movement onset for kinematic data
 %
-% TD = TD.calcMoveOnset
+% Usage:
+%   K = K.calcMoveOnset
+%
+% Inputs:
+%   K             Kinematic Data
+%
+% Optional Arguments:
+%   plotFlag        Plot speed profile and estimated movement onset
+%   speedThresh     Speed threshold
+%   dim             Dimensions to use for speed calculation
+%   fCutoff         Cutoff frequency for LP filter
+%   minOnsetTime    Minimum onset time
 %
 % Author:   Alan D. Degenhart
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [K] = calcMoveOnset(K,varargin)
