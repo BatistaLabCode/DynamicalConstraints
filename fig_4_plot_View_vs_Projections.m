@@ -1,10 +1,28 @@
 function [F] = fig_4_plot_view_vs_projections(dataLoc,varargin)
-% ADD the header
+% [F] = fig_4_plot_view_vs_projections(dataLoc) Plots the two-target task
+% in both the workspace and neural space for the intuitive movement and
+% separation maximizing conditions. Creates a 2x2 with the following
+% conditions:
+%      1) MoveInt projection feedback trials, MoveInt workspace (Left-top)
+%      2) MoveInt projection feedback trials, SepMax projection (Right-top)
+%      3) SepMax projection feedback trials, MoveInt projection (Left-bot.)
+%      4) SepMax projection feedback trials, SepMax workspace(Right-bot.)
 %
+% Inputs:
+%   dataLoc    Paths for the main data folder
 %
+% Optional Inputs:
+%   exampleSess         The example session used in the paper (fig4).
+%   saveFig             Determine whether or not to save the data
+%   savePathBase        Where to save the figures.
+%   plotScale           Axis Limits
+%   centerPos           Center of the workspace
+%   plotStates          Trial states to plot
+%   avgMode             Average method for the trajectories
+%   endMarker           Plots an arrow at the end of the trajectories
 %
-%
-%
+% Outputs:
+%   F                   Figure of the flow fields plotted in 2x2 grid.
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
