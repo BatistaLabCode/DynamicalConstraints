@@ -14,7 +14,7 @@
 %   predictPos    Update the cursor position
 %   useT          Use recorded time vectors
 %   timeStep      Offset for the temporal alignment
-%   noZeroPad     Truncate the decoded spikes to the number of on channels 
+%   noZeroPad     Truncate the decoded spikes to the number of ON channels 
 % 
 % Outputs:
 %   TD          Updated TrajectoryData
@@ -27,7 +27,7 @@ function TD = predictDecodeState_GPFA(TD, P, varargin)
 % Parse optional arguments
 spikeCountSrc = 'GPFA';  % Either 'GPFA' or 'decodeSpikeCounts' or 'binnedSpikes'
 trunGPFA = 0; % Determine whether or not to truncate the trajectory data
-TT = [];
+TT = [];  % Orthonormalization matrix
 predictPos = true;
 useT = false; 
 timeStep = []; % Offset for the temporal alignment
@@ -144,8 +144,6 @@ for i = 1:nTrials
     
     % Put data into TD structure
     if predictPos
-        TD(i).kinTime = t';
-        TD(i).pos = x';
         TD(i).brainKin.time = t';
         TD(i).brainKin.pos = x';
     end
