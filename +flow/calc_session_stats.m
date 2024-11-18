@@ -7,23 +7,32 @@
 % This function compares the error distributions of the provided datasets,
 % which themselves are a summary of a flow field comparison.
 %
+% Compare the following:
+% - mse distributions
+% - It is possible to calculate other distribution by adding the
+%       calculation to flow.compare_flow_fields.
+%
+% For each of these, compute the p-value
+%
+%
+% Inputs:
+%   A_int_rot        Flow field comparison for IntMov vs SepMax
+%   A_pred_rot       Flow field comparison for predicted SepMax vs SepMax
+%
+% Outputs:
+%   stats            Structure that includes the rank sum p-value between
+%                       condition.
+%
 % Copyright (C) by Alan Degenhart and Erinn Grigsby
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [stats] = calc_session_stats(A_int_rot, A_pred_rot)
 
-% Compare the following:
-% - angular error distributions
-% - magnitude error distributions
-% - mse distributions
-%
-% For each of these, compute the p-value
-
 % Keep track of the test used
 stats.test = 'Wicoxon rank sum';
 
-metric_fields = {'ang', 'mag', 'mse'};
-metric_names = {'Angular error', 'Magnitude error', 'Mean squared error'};
+metric_fields = {'mse'};
+metric_names = {'Mean squared error'};
 n_metrics = length(metric_fields);
 
 % Iterate over each metric and compute p-value
