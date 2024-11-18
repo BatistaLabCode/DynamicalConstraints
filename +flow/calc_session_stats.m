@@ -23,7 +23,7 @@
 %   stats            Structure that includes the rank sum p-value between
 %                       condition.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [stats] = calc_session_stats(A_int_rot, A_pred_rot)
