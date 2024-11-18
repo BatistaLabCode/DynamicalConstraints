@@ -7,7 +7,7 @@
 % structure.
 %
 % Usage:
-%   [P] = el.opt.get_data(x, cond_cond)
+%   [P] = opt.get_data(x, cond_cond)
 %
 % Inputs:
 %   x   Cell array of latent states for each trial (1 x n_trials)
