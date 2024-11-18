@@ -1,7 +1,7 @@
 function trajectory(GP,varargin)
 % Plot GPFA trajectory colored by target
 %
-% GP.plot(tC)
+% GP.trajectory(tC)
 %
 % Inputs:
 %   GP             GPFA object
@@ -14,7 +14,7 @@ function trajectory(GP,varargin)
 %   plotPreOnset    Pre-onset data if onset index is specified
 %   xSpec           Latent space
 %   plotMode        Plotting mode
-%   plotDim         Defined the plot dimensions
+%   plotDim         Defined dimensions to plot
 %   colorMode       Determine the color code
 %   col             Color place holder
 %   colorIndMode    'normal': use unique target number for identifying colors
