@@ -15,7 +15,7 @@
 %                   filename <<publicationQualitySessions.mat>>
 %   task_list      Tasks to calculate the flow field for.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart 
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
@@ -39,7 +39,7 @@ end
 dir_list = db.get_task_datasets(D, task_list);
 
 % Determine the number of sessions with a valid location for the data
-mask = cellfun(@(x) length(x)>0,[dir_list(:,1).trajectory]);
+mask = cellfun(@(x) ~isempty(x),[dir_list(:,1).trajectory]);
 dir_list = dir_list(mask,:);
 
 % Iterate over task datasets
