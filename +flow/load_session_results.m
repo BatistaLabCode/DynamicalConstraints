@@ -11,7 +11,7 @@
 % Optional Inputs:
 %   data_save_loc Location of the saved flow field data.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart 
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
