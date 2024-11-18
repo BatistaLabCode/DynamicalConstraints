@@ -1,6 +1,7 @@
 % Energy Landscape Experiment Info class (@EL_ExperimentInfo)
 %
-% This is a s
+% This is object is created when storing the projection information for the
+% separation maximizing decoder.
 classdef EL_ExperimentInfo
     
     properties
