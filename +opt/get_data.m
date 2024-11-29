@@ -1,4 +1,4 @@
-% get_data  Get data for optimization
+% [P] = opt.get_data(x, cond_cond) get_data  Get data for optimization
 %
 % This function is a standalone version of the 'calcOptimizationData'
 % function used online to get the data used during optimization. This
@@ -10,7 +10,7 @@
 %   [P] = opt.get_data(x, cond_cond)
 %
 % Inputs:
-%   x   Cell array of latent states for each trial (1 x n_trials)
+%   x           Cell array of latent states for each trial (1 x n_trials)
 %   cond_code   Code indicating the condition for each element of x
 %
 % Optional Inputs:
@@ -18,7 +18,7 @@
 %   nAvg        Number of datapoints to average over
 % 
 % Outputs:
-%   P   Structure with parameterized data passed to the optimization.
+%   P           Structure of parameterized data passed to the optimization.
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
