@@ -41,11 +41,18 @@ function [FlowResults] = main_analysis(base_dir, intuitive_dir, rotated_dir, var
 d_grid = 20;           % Allow the grid to be pre-specified
 min_pts_per_voxel = 2; % Minmum number of points contained in a valid voxel
 centerPos = [0 0 0];   % Defined center of the workspace
+saveRaw = 0;           % Determine whether to save the raw grid data to the 
+                       % comparison.
 % Define locations to save results structure
-data_save_loc = 'F:\Erinn\testSave\FlowComparison\mat';
+data_save_loc = [];
 saveData = 1;
 
 assignopts (who, varargin);
+
+dataLoc = serverPath;
+if isempty(data_save_loc)
+    data_save_loc = fullfile(dataLoc,'flowAnalysis','mat');
+end
 
 % Define dataset locations.
 D.base = base_dir;
@@ -124,9 +131,9 @@ cond_str = 'IntMov_Predicted';
     'min_pts_per_voxel', min_pts_per_voxel);
 
 % Compare flow fields
-[A_int_rot] = flow.compare_flow_fields(FF_int, FF_rot,'saveRaw',0,...
+[A_int_rot] = flow.compare_flow_fields(FF_int, FF_rot,'saveRaw',saveRaw,...
     'subject', subject, 'dataset', dataset, 'cond_str', 'IntMovVsSepMax');
-[A_pred_rot] = flow.compare_flow_fields(FF_pred, FF_rot,'saveRaw',0,...
+[A_pred_rot] = flow.compare_flow_fields(FF_pred, FF_rot,'saveRaw',saveRaw,...
     'subject', subject, 'dataset', dataset, 'cond_str', 'PredVsSepMax');
 
 % Summarize session (statistical tests)
@@ -145,10 +152,11 @@ FlowResults.A_pred_rot = A_pred_rot;
 FlowResults.stats = stats;
 
 % Save results
-intPos = regexp(intuitive_dir,'_');
-intPos = intPos(1)+1:intPos(2)-1;
-rotPos = regexp(rotated_dir,'_');
-rotPos = rotPos(1)+1:rotPos(2)-1;
+idxFile = length(base_dir);
+intPos = regexp(intuitive_dir(idxFile+1:end),'_');
+intPos = idxFile+(intPos(1)+1:intPos(2)-1);
+rotPos = regexp(rotated_dir(idxFile+1:end),'_');
+rotPos = idxFile+(rotPos(1)+1:rotPos(2)-1);
 if saveData
     mkdir(data_save_loc)
     save_filename = sprintf('%s%s_int%s_rot%s_FlowResults.mat', subject,...
