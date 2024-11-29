@@ -12,6 +12,11 @@ function [fW,fH,Ax] = calcFigureSize(nRow,nCol,axW,axH,axSp,varargin)
 % Optional Inputs:
 %   margin      Margins (px) 
 %
+% Outputs:
+%   fW          Figure width
+%   fH          Figure Height
+%   Ax          subplot axes parameters
+%
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
