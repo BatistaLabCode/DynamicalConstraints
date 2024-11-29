@@ -22,17 +22,21 @@
 function batch_analysis(varargin)
 
 % Define locations to save results structure
-data_save_loc = 'F:\Erinn\testSave\FlowComparison\mat';
+data_save_loc = [];
 D = [];
 task_list = { ...
     'tt_int',... % Shorthand flag for Two target intuitive
     'tt_rot'};   % Shorthand flag for Two target rotated
 assignopts (who, varargin);
 
+dataLoc = serverPath;
+if isempty(data_save_loc)
+    data_save_loc = fullfile(dataLoc,'flowAnalysis','mat');
+end
+
 % Load dataset info
 if isempty(D)
-    [File_D, loc_D] = uigetfile('*.mat','Load the file containing the summary of sessions');
-    load([loc_D File_D])
+    load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 end
 
 % Collect the directory information for valid files.
