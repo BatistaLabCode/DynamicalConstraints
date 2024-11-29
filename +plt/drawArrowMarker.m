@@ -13,11 +13,14 @@
 %   c   Color
 %   sz  Desired size (length of the arrow)
 %
+% Optional Inputs:
+%   edge_color   Set color
+%
 % Outputs:
 %   H   Handle to the drawn marker
 %
 % Author:   Alan D. Degenhart
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function H = drawArrowMarker(x,y,c,sz,varargin)
