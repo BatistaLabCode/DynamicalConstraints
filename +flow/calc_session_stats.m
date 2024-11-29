@@ -9,11 +9,10 @@
 %
 % Compare the following:
 % - mse distributions
-% - It is possible to calculate other distribution by adding the
+% - Note: It is possible to calculate other distribution by adding the
 %       calculation to flow.compare_flow_fields.
 %
 % For each of these, compute the p-value
-%
 %
 % Inputs:
 %   A_int_rot        Flow field comparison for IntMov vs SepMax
