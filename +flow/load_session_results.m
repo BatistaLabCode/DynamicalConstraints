@@ -16,8 +16,13 @@
 
 
 function [FR] = load_session_results(varargin)
-data_save_loc = 'F:\Erinn\testSave\FlowComparison\mat';
+data_save_loc = [];
 assignopts (who, varargin);
+
+if isempty(data_save_loc)
+    dataLoc = serverPath;
+    data_save_loc = fullfile(dataLoc,'flowAnalysis','mat');
+end
 
 % Define data location and get all *.mat files
 valid_files = util.findDirContents(data_save_loc, '_FlowResults.mat');
