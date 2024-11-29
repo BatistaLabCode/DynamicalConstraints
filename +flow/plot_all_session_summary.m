@@ -1,20 +1,23 @@
 % flow.plot_all_session_summary  Creates a summary scatter plot of all
 % sessions comparing A_int_rot and A_pred_rot. Significant markers will be
-% filled and the NS markers will be hallow.
+% filled and the NS markers will be hallow. It is possible to highlight an
+% example session as well.
 %
 % Usage:
-%   flow.batch_create_session_figs()
+%   h = flow.batch_create_session_figs()
 %
 % Optional Inputs:
-%   highlight_exp   Highlight example sessions
-%   data_save_loc   Location to save flow field session data
-%   fig_save_loc    Location to save flow field session figures
-%   pltLegend       Determine whether to plot the legend
-%   plotOverlap     Determine whether to plot a scatter of the number of
-%                     voxel overlap
-%   xTextOffset     Distance between the text printed on the screen
-%   measMet         Plot the median and mean metric values
-% 
+%   highlight_exp      Highlight example sessions
+%   data_save_loc      Location to save flow field session data
+%   fig_save_loc       Location to save flow field session figures
+%   pltLegend          Determine whether to plot the legend
+%   plotOverlap        Determine whether to plot a scatter of the number of
+%                           voxel overlap
+%   xTextOffset        Distance between the text printed on the screen
+%   measMet            Plot the median and mean metric values
+%   metric_str         Metric name in the structure
+%   metric_plot_title  Metric name for printing text 
+%
 % Outputs:
 %   h               Summary figure
 %
