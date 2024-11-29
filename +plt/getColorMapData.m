@@ -1,7 +1,15 @@
 function cData = getColorMapData(x,cLim,map)
 % getColorMapData       Get RGB color for desired colormap
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Inputs:
+%   x       Data
+%   cLim    Color  value range
+%   map     Colormap
+% 
+% Outputs:
+%   cData   RGB color
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 if nargin > 2
