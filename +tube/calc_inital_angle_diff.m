@@ -1,6 +1,30 @@
+% calc_inital_angle_diff       Creates the initial angle structure for the
+% unconstrained and constrained conditions of a session.
+%
+% [AD,F] = calc_inital_angle_diff(IT)
+%
+% This function returns the valid items in the directory specified by
+% BASEDIR with the name specified by ITEMNAME.
+%
+% Usage:
+%   tube.calc_inital_angle_diff(IT)
+% 
+% Inputs:
+%   baseDir         Base directory to identified all dependent content
+%   itemName        File identifier to subselect for specific file content.              
+%
+% Optional Inputs:
+%   baseDir         Base directory to identified all dependent content
+%   itemName        File identifier to subselect for specific file content.
+% 
+% Outputs:
+%   dList           List of files with valid elements.
+%
+% Author:   Alan D. Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 function [AD,F] = calc_inital_angle_diff(IT,varargin)
 successOnly = true;
-calcWO = true;
 F = [];
 plotFig = 1;
 useRot = 1;
@@ -9,8 +33,7 @@ extraOpts = assignopts(who, varargin);
 
 % Set up the structure
 AD = struct('subject',IT.subject,'dataset',IT.date,'compAng',[],...
-    'avgUncon',[],'avgCon',[],'avgUnconWO',[],'avgPredCon',[],...
-    'uncon',[],'con',[],'unconWO',[],'predCon',[],'rotTT',[],...
+    'avgUncon',[],'avgCon',[],'uncon',[],'con',[],'rotTT',[],...
     'tubes',IT.constrainedTubeRadius);
 
 startPos = IT.TDconstrained{1}(1).startPos';
@@ -52,20 +75,6 @@ AD.uncon = util.calc_angle_diff(TD, rotTD,'flowTraj',flowTraj,...
     'antFlowTraj',antFlowTraj,extraOpts{:});
 AD.uncon(end+1,:) = [TD.successful];
 
-% Calculate the angle difference for the unconstrained washout trials
-if calcWO & ~isempty(IT.TDunconstrainedWashout)
-    TD = IT.TDunconstrainedWashout;
-    if successOnly
-        TD = TD([TD.successful]==1);
-    end
-    TD = TD(ismember([TD.startPos]',startPos,'rows'));
-    AD.avgUnconWO = util.calc_angle_diff(TD.average('avgMode','samp'),...
-        rotTD,'flowTraj',flowTraj,'antFlowTraj',antFlowTraj,extraOpts{:});
-    AD.unconWO = util.calc_angle_diff(TD, rotTD,'flowTraj',flowTraj,...
-        'antFlowTraj',antFlowTraj,extraOpts{:});
-    AD.unconWO(end+1,:) = [TD.successful];
-end
-
 % Calculate the angle difference for the constrained trials
 for n = 1:size(IT.TDconstrained,1)
     TD = IT.TDconstrained{n};
@@ -74,7 +83,7 @@ for n = 1:size(IT.TDconstrained,1)
     end
     TD = TD(ismember([TD.startPos]',startPos,'rows'));
     aTD = TD.average('avgMode','samp');
-    if n == 1 & plotFig
+    if n == 1 && plotFig
         F = figure; hold on
         for k = 1:size(rotTD,1)
             rotTD(k).targPos = rotTD(k).startPos;
@@ -89,7 +98,7 @@ for n = 1:size(IT.TDconstrained,1)
         title(sprintf('%s%s Average trajectories and initial angles',...
             IT.subject,IT.date))
         axis(175*[-1 1 -1 1])
-        F.Name = sprintf('%s%s_initialAngle',IT.subject,IT.date)
+        F.Name = sprintf('%s%s_initialAngle',IT.subject,IT.date);
     elseif n == 1
         [AD.avgCon(:,n),~,AD.compAng] = util.calc_angle_diff(aTD,rotTD,...
             'flowTraj',flowTraj,'antFlowTraj',antFlowTraj,extraOpts{:});
@@ -102,29 +111,12 @@ for n = 1:size(IT.TDconstrained,1)
     AD.con{n}(end+1,:) = [TD.successful];
 end
 
-% Calculate the angle difference for the predicted constrained trials (i.e.
-% the unconstrained trials through the tube)
-for n = 1:size(IT.TD_unconst_tube,1)
-    TD = IT.TD_unconst_tube{n};
-    if successOnly
-        TD = TD([TD.successful]==1);
-    end
-    TD = TD(ismembertol([TD.startPos]',startPos,1e-6,'ByRows',true));
-    aTD = TD.average('avgMode','samp');
-    AD.avgPredCon(:,n) = util.calc_angle_diff(aTD,rotTD,...
-        'flowTraj',flowTraj,'antFlowTraj',antFlowTraj,extraOpts{:});
-    AD.predCon{n} = util.calc_angle_diff(TD, rotTD,'flowTraj',flowTraj,...
-        'antFlowTraj',antFlowTraj,extraOpts{:});
-    AD.predCon{n}(end+1,:) = [TD.successful];
-end
-
 % Calculate the null distribution, i.e. the initial angle for the intuitive
 % mapping two target task.
 if useRot
-
     % Calculate intTraj
     intTrl = IT.TDconstrained{1}(1);
-    intTraj = [intTrl.targPos(1:2) - intTrl.startPos(1:2)];
+    intTraj = intTrl.targPos(1:2) - intTrl.startPos(1:2);
     intTraj = intTraj./sqrt(sum(intTraj.^2));
 
     TD = IT.TD_tt_rot{1};
