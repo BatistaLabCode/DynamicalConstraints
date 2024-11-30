@@ -1,17 +1,36 @@
 function F = plotGridTaskTrajectories(TD,fName,varargin)
-% Analysis script for position Kalman filter grid task
+% F = plotGridTaskTrajectories(TD,fName,varargin)
+% 
+% Analysis script for position decoder grid task
 %
 % Inputs:
-%   TD      TrajectoryData object 
+%   TD      TrajectoryData object
+%   fName   Name for title and figure ID
 %
-% Author:           Alan D. Degenhart
+% Optional Inputs:
+%   centerPos           Center of the workspace
+%   plotTargets         Plot the targets
+%   plotIntTarg         Plot the intermediate target
+%   plotScale           Axis Limits
+%   plotScaleFactor     Scaling factor to determine the axis limits
+%   plotStates          Determine which task states to plot
+%       ColMat          Use a color map structure with target definitions
+%   axisOn              Determines if the axis labels are visible
+%   avgMode             Average method for the trajectories
+%   startMarker         Start of trajectory marker style
+%   endMarker           End of trajectory marker style
+%   trlMarkerSz         Size of the ind trial trajectory markers
+%   avgMarkerSz         Size of the average trajectory's markers
+% 
+% Author: Alan D. Degenhart and Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 centerPos = [];
+plotTargets = 1;
 plotIntTarg = false;
-plotScaleFactor = 1.5;
 plotScale = [];
+plotScaleFactor = 1.5;
 plotStates = {'Step 2'};
 ColMat = [];
 axisOn = 1;
@@ -20,7 +39,6 @@ startMarker = 'o';
 endMarker = 'o';
 trlMarkerSz = 5;
 avgMarkerSz = 10;
-plotTargets = 1;
 
 assignopts(who,varargin);
 
