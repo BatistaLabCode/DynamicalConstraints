@@ -58,7 +58,7 @@ useExample = 1;              % Use the hardcode example trajectories
 assignopts(who,varargin);
 
 % Load the initial angle analysis data
-% AD_compare , ang_antFlow, ang_unCon, ang_flow, and AD_co
+% AD_compare, ang_unCon, ang_flow, and AD_co
 load(fullfile(dataLoc,'initialAng_tt_vs_uncon+con_Simplified.mat'))
 load(fullfile(dataLoc,'centerOut_AngleAnalysisData_Signed.mat'))
 
@@ -126,9 +126,9 @@ for n = 2:9
     tempP45(ref(n),:) = tmpPOff(3,:);
 end
 
-g = (tempP45-tempCO)./tempP45;
-g2 = (tempN45-tempCO)./tempN45;
-tempCO45 = .5*(g+g2);
+withFlowDif = (tempP45-tempCO)./tempP45;
+againstFlowDif = (tempN45-tempCO)./tempN45;
+tempCO45 = .5*(withFlowDif+againstFlowDif);
 
 % Create the histograms for no change, full change, unconstrained, and
 % constrained data. Include the mean and standard deviation in each plot,
@@ -228,11 +228,11 @@ for n = 1:length(exampleSess)
         IT.intermediate_target_num);
     Ftube.Name = figName;
     titleStr = {'6C) Unconstrained trials','7B) Largest Tube',...
-        '7B) Smallest Tube','7D) All Tubes (averages)'};
+        '7B) Smallest Tube','7C) All Tubes (averages)'};
     n_tube = length(IT.constrainedTubeRadius);
     tube_radius = IT.constrainedTubeRadius;
 
-    % 6A) Create figures for intermediate target - no tube
+    % 6C) Create figures for intermediate target - no tube
     plt.subplotSimple(nRow,nCol,1,'Ax',Ax1);
     TD(1).plot('ColMat',C,'plotTrajectories',0,'plotStartTarg',1,...
         'plotEndTarg',0,'plotTargNum',0)
@@ -241,7 +241,8 @@ for n = 1:length(exampleSess)
     TDallAvg = TD.average('avgMode', avgMode);
     TDallAvg.plot('color',[0 0 0],'lineWidth',3,'plotTargets',0,'endMarker','arrow');
 
-    % 7B) Iterate over presented tubes and plot successful trajectories
+    % 7B) Iterate over presented tubes and plot a selection of both 
+    % successful and fail trial trajectories.
     TDavg = cell(1, n_tube);
     n_avg = nan(1, n_tube);
     for i = 1:n_tube
@@ -281,7 +282,17 @@ for n = 1:length(exampleSess)
                 else
                     pos = 1:length(TD);
                 end
-                TD(pos).plot('color',[0 0 0],'plotTargets',0,'endMarker',[])
+                % Identify the successful trials
+                tTD = TD(pos);
+                sucMask = [tTD.successful];
+
+                % Plot the successful trials
+                tTD(sucMask==1).plot('color',[0 0 0],'plotTargets',0, ...
+                    'endMarker', [],'startMarker',[])
+                if sum(sucMask)<length(pos)
+                    tTD(sucMask==0).plot('color',[1 0 0],'plotTargets',0,...
+                        'endMarker', [],'startMarker',[],'lineStyle','-')
+                end
             else % Plot the smallest tube trajectories
                 if ~isempty(trialsPerCondition)
                     if useExample
