@@ -7,15 +7,22 @@ function [TD,targInfo] = preprocessGridTaskTrajData(TD,varargin)
 % that the resultant data is normalized appropriately and has the correct
 % target code info.
 %
-% Optional Input:
-%   centerPos:      Location of the center ofthe workspace.
+% Input:
+%   TD             TrajectoryData object
 %
-% Author:       Alan D. Degenhart
+% Optional Input:
+%   centerPos      Location of the center ofthe workspace.
+%
+% Output:
+%   TD             Modified TrajectoryData object
+%   targInfo       Structure with target information and target codes
+%
+% Author:       Alan D. Degenhart and Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments
-centerPos = [-15 -450 0];
+centerPos = [0 0 0];
 
 assignopts(who,varargin);
 
