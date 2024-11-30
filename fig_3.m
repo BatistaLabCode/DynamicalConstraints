@@ -46,7 +46,7 @@ plotDim = [1 2];            % Which dimensions are being plotting
 assignopts(who,varargin);
 
 % Determine the sessions with the correct data
-load(fullfile(dataLoc,'publicationQualitySessions.mat'));
+load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 dir_list = db.get_task_datasets(D, {'tt_int','tt_rot'});
 load(fullfile(dataLoc,'dPrime_workspace+neuralSpace_fig3.mat'))
 
@@ -55,7 +55,7 @@ maskSessEx = find(ismember({dir_list(:,1).dataset},exampleSess));
 
 % Create the 2D GPFA plots of the example session
 
-% Load the decoder
+% Load the data and decoders
 [TD, ~, resultInt] = util.loadSessionData(dir_list(maskSessEx,1));
 TD = TD.normalize([0 0 0]);
 TD = TD(ismember([TD.targPos]',unique([TD.startPos]','rows'),'rows'));
