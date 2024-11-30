@@ -8,7 +8,6 @@ classdef IntTargExp
         subject = [];
         date = [];
         intermediate_target_num = [];
-        successRate = [];
         
         % Information about specific blocks
         unconstrainedBlockDir = [];
@@ -26,7 +25,9 @@ classdef IntTargExp
         tubeObject = [];
         
         % Performance metrics
-        block_size = [];     
+        block_size = []; 
+        successRate = [];
+        predictedSuccessRate = [];
     end
     
     methods
