@@ -11,6 +11,14 @@ function AX = subplotSimple(nRow,nCol,plotNo,varargin)
 %   nRow    Number of rows
 %   nCol    Number of columns
 %
+% Optional Inputs:
+%   nRow    Number of rows
+%   Ax      Predefined axes settings.
+%   xMarg   L, R margin
+%   yMarg   B, T margin
+%   xSpace  Inter-plot spacing (x)
+%   ySpace  Inter-plot spacing (y)
+%
 % Outputs:
 %   AX      Axes handle
 %
