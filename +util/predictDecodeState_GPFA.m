@@ -1,3 +1,5 @@
+% TD = predictDecodeState_GPFA(TD, P, varargin)
+%
 % predictDecodeState_GPFA       Run GPFA decoder on TrajectoryData object
 %
 % Usage:
@@ -25,7 +27,7 @@
 function TD = predictDecodeState_GPFA(TD, P, varargin)
 
 % Parse optional arguments
-spikeCountSrc = 'GPFA';  % Either 'GPFA' or 'decodeSpikeCounts' or 'binnedSpikes'
+spikeCountSrc = 'GPFA';  % Either 'GPFA' or 'decodeSpikeCounts'
 trunGPFA = 0; % Determine whether or not to truncate the trajectory data
 TT = [];  % Orthonormalization matrix
 predictPos = true;
@@ -100,12 +102,7 @@ for i = 1:nTrials
     
     % Calculate time vector and truncate trajectory
     if useT
-        switch spikeCountSrc
-            case 'binnedSpikes'
-                t = TD(i).binTime;
-            case {'decodeSpikeCounts','GPFA'}
-                t = TD(i).decodeTime;
-        end             
+        t = TD(i).decodeTime;          
     else
         t = (1:nSamp)*P.binwidth;
     end
@@ -126,6 +123,7 @@ for i = 1:nTrials
     if isempty(TD(i).GPFA)
         TD(i).GPFA = GPFAData;
     end
+    
     % Orthonormalize the data
     if ~isempty(TT)
         TD(i).GPFA.xorth = TT*u;
