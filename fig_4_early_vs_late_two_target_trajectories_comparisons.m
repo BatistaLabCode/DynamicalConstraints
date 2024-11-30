@@ -51,7 +51,7 @@ assignopts(who,varargin);
 load(fullfile(dataLoc,'dPrime_EarlyLate+ShuffledData.mat'))
 
 % Determine the sessions with the correct data
-load(fullfile(dataLoc,'publicationQualitySessions.mat'))
+load(fullfile(dataLoc,'exampleDatasetCatalog.mat'))
 dir_list = db.get_task_datasets(D, {'tt_int','tt_rot'});
 
 % Plot the d' values for each condition (early, late, shuff1, and shuff2)
