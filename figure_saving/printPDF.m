@@ -11,9 +11,8 @@ function printPDF(F,filename)
 %   filename    Name (including path if desired)
 %
 % Author:       Alan D. Degenhart
-% Date created: N/A
-% Last updated: N/A
-% Last update:  N/A
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 set(gcf,'renderer','painters') % Needed to save editable figure
 
