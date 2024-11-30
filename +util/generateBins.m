@@ -1,4 +1,5 @@
 function [binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType)
+%[binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType) 
 % generateBins          Create bin arrays for binning data
 %
 % Inputs
@@ -21,7 +22,7 @@ function [binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType
 % Bins are aligned at t = 0.  If a different type of alignment is desired,
 % data should be time-shifted prior to binning.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 if nargin < 4
