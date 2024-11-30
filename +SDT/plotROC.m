@@ -1,5 +1,28 @@
 function [F] = plotROC(datROC,varargin)
 % Plots the ROC curve data
+%
+% Inputs: 
+%   datROC      Structure that returns the data necessary to remake an
+%                ROC curve for the data, ie P, N, sensitivity (TPR = TP/P),
+%                specificity (TN/N = 1-FPR), criterion, and t-test results
+%                comparing the two distributions. 
+%
+% Optional Inputs:
+%   plotHist    Determines if the histogram is plotted (default plot)
+%   plotROC     Determines if the ROC curve is plotted (default plot)
+%   plotSS      Determines if the criterion curve is plotted (default plot)
+%   AxHist      Predefined axes for the histogram
+%   AxROC       Predefined axes for the ROC curve
+%   AxSS        Predefined axes for the criterion curve
+%   F           Predefined figure handle
+%   nBins       Number of bins for the histogram
+%
+% Outputs: 
+%   F           Figure handle
+%
+% Author:       Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional Inputs
 plotHist = 1; %Default plot
@@ -11,7 +34,7 @@ AxSS = []; %Default empty
 F = [];
 nBins = 25;
 
-optArg = assignopts(who,varargin);
+assignopts(who,varargin);
 
 % Check if any axis are defined, if all three are not defined then create a
 % shared figure
