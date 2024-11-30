@@ -1,33 +1,35 @@
 function [dP,datROC] = calcSensitivityIdx(xA,xB,varargin)
+% [dP,datROC] = calcSensitivityIdx(xA,xB,varargin)
 % Calculate the sensitivity index for your data. This code currently
 % assumes that the data is 1-dimensional for all comparisions. 
 %
-% Inputs: vectors xA and xB, the two conditions that are being compared. 
-%
-% Outputs: 
-%       - dP a single scalar value. 
-%       - datROC a structure that returns the data necessary to remake an
-%           ROC curve for the data, ie P, N, sensitivity (TPR = TP/P),
-%           specificity (TN/N = 1-FPR), criterion, and t-test results
-%           comparing the two distributions.
-%       * Note: A will always be defined as the positive trials and B will
-%           always be the negative trials.
+% Inputs: 
+%   xA and xB   Vectors of the two conditions that are being compared. 
 %
 % Optional Inputs: 
-%       - muA: Mean of A, if empty calculated from the given data
-%       - muB: Mean of B, if empty calculated from the given data
-%       - SIGMA: standard deviation of data, if empty calculated as the 
-%               average of the std for A and the std for B.
-%       - sig2A: variance of A, if empty calculated
-%       - sig2B: variance of B, if empty calculated
-%       - crit: Criterion to compare TPR and FPR over, if empty will simply
+%   muA         Mean of A, if empty calculated from the given data
+%   muB         Mean of B, if empty calculated from the given data
+%   SIGMA       standard deviation of data, if empty calculated as the 
+%                   average of the std for A and the std for B.
+%   sig2A       Variance of A, if empty calculated
+%   sig2B       Variance of B, if empty calculated
+%   crit        Criterion to compare TPR and FPR over, if empty will simply
 %                  test over the range of unique values for A and B
 %                  combined.
-%       - plotFig: If the ROC should plotted
-%       - Ax:       Axis to plot the data, if empty a new figure is created
+%   plotFig     Determines if the ROC should plotted
+%   Ax          Axis to plot the data, if empty a new figure is created
+%
+% Outputs: 
+%   dP        A single scalar value of d' 
+%   datROC    A structure that returns the data necessary to remake an
+%                ROC curve for the data, ie P, N, sensitivity (TPR = TP/P),
+%                specificity (TN/N = 1-FPR), criterion, and t-test results
+%                comparing the two distributions.
+%   * Note: A will always be defined as the positive trials and B will
+%           always be the negative trials.
 %
 % Author:       Erinn Grigsby
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional inputs
