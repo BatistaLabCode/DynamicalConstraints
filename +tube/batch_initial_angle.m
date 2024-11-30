@@ -15,7 +15,7 @@
 %   save_file   Determine whether or not to save the AD_compare struct
 %   save_path   Determine where to save the AD_compare data
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [AD_compare] = batch_initial_angle(varargin)
