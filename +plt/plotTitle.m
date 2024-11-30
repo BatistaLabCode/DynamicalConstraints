@@ -5,8 +5,12 @@ function plotTitle(titleStr,subtitleStr,varargin)
 %  titleStr         Main figure title.
 %  subtitleStr      Sub-title.
 %
-% Copyright (C) by Alan Degenhart
-% Email: alan.degenhart@gmail.com
+% Optional Inputs:
+%   interpreter     Text interpreter
+%   FontSize        Font size
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 interpreter = 'none';
 FontSize = 14;
