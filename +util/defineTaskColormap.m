@@ -28,6 +28,10 @@ target_radius = 90;
 
 assignopts(who, varargin);
 
+if isempty(task)
+    task = 'bc';
+end
+
 switch task
     case 'bc'
         % Color map for the standard two-target conditional grid task
