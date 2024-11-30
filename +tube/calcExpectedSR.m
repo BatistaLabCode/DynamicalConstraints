@@ -1,5 +1,8 @@
 % Calculate expected success rate for constrained path experiment
 %
+% Usage:
+%   [sr, sr_all] = tube.calcExpectedSR(TD,TU,r)
+% 
 % Inputs:
 %   TD      TrajectoryData object containing trials to apply tube
 %               constraint to
@@ -12,10 +15,11 @@
 % Optional Inputs:
 %   startPos    Start target position for the constrained path task
 %   kinSource   Determine which kinSource to calculate the success rate
+%   rmFail      Remove failed trials
 %   plotSegment Determine we are plotting a segment of the tube around
 %                      the path or the entire tube around the path
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [sr, sr_all] = calcExpectedSR(TD,TU,r,varargin)
@@ -23,6 +27,7 @@ function [sr, sr_all] = calcExpectedSR(TD,TU,r,varargin)
 % Parse optional arguments
 startPos = [];
 kinSource = 'brain';
+rmFail = 0;
 plotSegment = [];
 
 assignopts(who,varargin);
@@ -34,8 +39,10 @@ if ~isempty(startPos)
 end
 
 % Remove any failed trials from the trajectory data object
-sc = logical([TD.successful]);
-TD = TD(sc);
+if rmFail
+    sc = logical([TD.successful]);
+    TD = TD(sc);
+end
 
 n_trials = length(TD);
 n_tube = length(r);
@@ -73,10 +80,6 @@ for i = 1:n_tube
             offsetInd = find(~contMask,1,'first') - 1;
 
             % Truncate kinematics
-            TDtemp(j).kinTime = TDtemp(j).kinTime(1:offsetInd);
-            TDtemp(j).pos = TDtemp(j).pos(1:offsetInd,:);
-            TDtemp(j).vel = TDtemp(j).vel(1:offsetInd,:);
-
             TDtemp(j).(srcStr).time = TDtemp(j).(srcStr).time(1:offsetInd);
             TDtemp(j).(srcStr).pos = TDtemp(j).(srcStr).pos(1:offsetInd,:);
             TDtemp(j).(srcStr).vel = TDtemp(j).(srcStr).vel(1:offsetInd,:);
