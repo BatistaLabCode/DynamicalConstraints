@@ -12,7 +12,7 @@
 % Optional Inputs:
 %   data_save_loc  Location to save flow field batch data.
 %   D              Structure with all the valid experimental data. Save as
-%                   filename <<publicationQualitySessions.mat>>
+%                   filename <<exampleDatasetCatalog.mat>>
 %   task_list      Tasks to calculate the flow field for.
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart 
