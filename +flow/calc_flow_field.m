@@ -2,6 +2,9 @@ function [FF] = calc_flow_field(TD, d_grid, cond_str, varargin)
 % Calcuates the flow field of each unique start and end target pair. IE one
 % flow field from A to B and another flow field for target B to A.
 %
+% Usage:
+%   flow.calc_flow_field(TD, d_grid, cond_str)
+%
 % Inputs:
 %   dataLoc    Paths for the main data folder
 %
@@ -13,6 +16,37 @@ function [FF] = calc_flow_field(TD, d_grid, cond_str, varargin)
 % 
 % Outputs:
 %   FF               Flow field structure for a given projection
+%
+% FF structure is:
+%   subject
+%   dataset 
+%   condition:     Calculated flow field condition
+%   kin:           FF for the SepMax trials
+%     start_pos:      Start target position
+%     all_pos:        Concatenated cursor positions, separated by start_pos
+%     all_vel:        Concatenated cursor velocities, separated by start_pos
+%     hist_counts:    Distribution of distance between cursor position at 
+%                       time i and i+1. (Normalized)               
+%     delta_hist:     Delta step for distance histogram
+%     dist_edges:     Edges for distance histogram
+%     d_peak:         Max distance for each target position (This is used
+%                       to automatically determine grid size if not set)
+%     ax_lim:         Axis limits
+%   grid:          Flow field grid data
+%     d_grid:            Number of voxel grids.
+%     grid:              Grid edges
+%     min_pts_per_vowel: Minimum number of voxels to include for calculations
+%     num_pts:           Number of points per voxel for all conditions
+%     num_pts_start_pos: Number of points per voxel per condition
+%     X:                 Grid of x-direction position for voxels
+%     Y:                 Grid of y-direction position for voxels
+%     VX_start_pos:      Velocity flow field x-direction per condition
+%     VY_start_pos:      Velocity flow field y-direction per condition
+%     VX:                Flow field x-direction averaged across conditions
+%     VY:                Flow field x-direction averaged across conditions
+%     grid_cts:          Number of points in the per voxel per condition
+%     grid_hist_edges:   Bins of the number of points per voxel
+%     grid_hist:         Distribution of number of points per voxel
 %
 % Created by Erinn Grigsby and Alan Degenhart
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
@@ -50,7 +84,8 @@ for i = 1:n_start_pos
     % Get all cursor positions.  Loop over all trials and calculate
     % velocity from positions.
     start_pos_mask = ismember(start_pos, start_pos_uni(i,:), 'rows');
-    pos = {TD(start_pos_mask).pos}';
+    tmpVRCurDat = [TD(start_pos_mask).brainKin];
+    pos = {tmpVRCurDat.pos}';
     n_trials = length(pos);
     vel = cell(n_trials, 1);
     for j = 1:length(pos)
@@ -98,11 +133,9 @@ end
 x_grid = d_grid/2:d_grid:ax_lim(2);  % Center the grid at 0
 x_grid = [-fliplr(x_grid) x_grid];
 
-% Loop over grid and plot
+% Loop over grid and calculate the number of points per voxel
 n_grid = length(x_grid) - 1;
 grid_cts = nan(n_start_pos, n_grid, n_grid);
-grid_hist_edges = 0:20;
-grid_hist = nan(n_start_pos, length(grid_hist_edges) - 1);
 for i = 1:n_start_pos
     % Get all positions for current target
     pos = all_pos{i};
@@ -121,7 +154,12 @@ for i = 1:n_start_pos
             grid_cts(i,j,k) = sum(mask);
         end
     end
-    
+end
+
+% Determine the distribution of voxels by point count
+[~,grid_hist_edges] = histcounts(reshape(grid_cts,1,[]));
+grid_hist = nan(n_start_pos, length(grid_hist_edges) - 1);
+for i = 1:n_start_pos
     % Determine counts per bin
     temp_cts = reshape(grid_cts(i,:,:), 1, []);
     grid_hist(i,:) = histcounts(temp_cts, grid_hist_edges);

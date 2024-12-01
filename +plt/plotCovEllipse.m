@@ -8,6 +8,18 @@ function p = plotCovEllipse(M,C,col,varargin)
 %   C       Covariance matrix
 %   col     Color to use
 %
+% Optional Inputs:
+%   LineStyle       Line Style for covariance ellipse
+%   Marker          Marker for the mean
+%   MarkerSize      Marker size
+%   chisquare_val   Chi^2 scale factor
+%   dim             Dimension to plto along
+%   plotMean        Plot mean
+%   LineWidth       Ellipse's line width
+% 
+% Outputs:
+%   p               Projected ellipse
+%
 % Adapted from ellipse.m in DataHigh:
 % (c) Benjamin Cowley, Matthew Kaufman, Zachary Butler, Byron Yu, 2012-2013
 %
@@ -15,8 +27,8 @@ function p = plotCovEllipse(M,C,col,varargin)
 %  y = u * x, so cov(y) = u*cov(x)*u'
 %cov_y = proj_vecs * cov_matrix * proj_vecs';
 %
-% Authors:      Erinn Grigsby and Alan Degenhart
-% Emails:       erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional Inputs
 LineStyle = '-';    % Line Style for covariance ellipse

@@ -6,9 +6,15 @@ function [M] = colormapNew(Ax,mapName)
 % This function behaves in the same way as the standard 'colormap'
 % function, but allows for user-defined custom colors.
 %
+% Inputs:
+%   Ax          Axes where the color map is defined.
+%   mapName     Colormap name
+% 
+% Outputs:
+%   M           Color map matrix
+%
 % Author:       Alan D. Degenhart
-% Created:      2016.11.21
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Handle case where only the map name is specified.  In this case, there is

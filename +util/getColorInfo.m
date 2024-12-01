@@ -3,24 +3,22 @@
 % [colInfo] = util.getColorInfo(C, startPos, endPos)
 %
 % Inputs:
-%   C           - 'ColMat' structure of position-to-color definitions
-%   startPos    - Start target position
-%   endPos      - End target position
+%   C           'ColMat' structure of position-to-color definitions
+%   startPos    Start target position
+%   endPos      End target position
 %
 % Output:
 %   colInfo{1} - light color
 %   colInfo{2} - dark color
 %   colInfo{3} - target pair string
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [colInfo] = getColorInfo(C,startPos,endPos)
 
 % Get number of start/end positions to find colors for
 nPos = max(size(startPos, 1), size(endPos, 1));
-% assert(nPos == size(endPos,1), ...
-%     'Number of provided start and end positions do not match.')
 
 startPos = round(startPos);
 endPos = round(endPos);

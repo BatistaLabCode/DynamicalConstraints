@@ -9,16 +9,18 @@
 % then be used as a control of full change trajecotries.
 %
 % Optional Inputs:
-%   data_loc    Location of the data folder.
+%   data_loc    Location of the data folder
+%   centerPos   Center of the workspace
 %   save_file   Determine whether or not to save the AD_compare struct
 %   save_path   Determine where to save the AD_compare data
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [AD_co] = batch_initial_angle_centerOutControl(varargin)
 %% Calculated the initial angles for the gradial training/center out task.
 data_loc = [];
+centerPos = [0 0 0];
 save_file = 0;
 save_path = [];
 
@@ -43,15 +45,15 @@ AD_co = repmat(struct('subject',[],'date',[],'targAng',[],...
 for k = 1:size(valid_files,2)
 
     % Load the IT data
-    load(fullfile(int_targ_loc, valid_files{k}));
-
+    IT = load(fullfile(int_targ_loc, valid_files{k}));
+    IT = IT.IT;
+    
     % Collect the session date information
     yr = IT.date(1:4);
     mon = IT.date(5:6);
-    [~,locPath] = serverPath;
 
     % Find and load the center out data.
-    pathName = fullfile(locPath,IT.subject,yr,mon,IT.date,'translated','trajectoryData');
+    pathName = fullfile(dataLoc,IT.subject,yr,mon,IT.date,'translated','trajectoryData');
     dirInfo = dir(pathName);
     fileIdx = find(contains({dirInfo.name},'centerOut'));
 
@@ -59,7 +61,6 @@ for k = 1:size(valid_files,2)
     TD = TrajectoryData().load(fullfile(pathName,dirInfo(fileIdx(end)).name));
 
     % Normalize the data
-    centerPos = [0 0 0];
     if ~ismember(mean(unique([TD.targPos]')),centerPos)
         centerPos = mean(unique([TD.targPos]','rows'));
     end
@@ -83,7 +84,7 @@ for k = 1:size(valid_files,2)
     posZero = find(ismembertol(ang_aTD,0,1e-5));
     offsetAng = 45;
 
-    %% Iterate through each unique target location and identify the angle
+    % Iterate through each unique target location and identify the angle
     % difference
     for n = 1:size(uniAng,2)
         posAng = find(ismembertol(ang_aTD,uniAng(n),1e-5));

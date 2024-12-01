@@ -3,59 +3,68 @@
 % Usage:
 %   [h] = flow.plot_session_stats(A_int_rot, A_pred_rot, stats)
 %
+% This function plots error distributions of a single session for two flow
+%   field comparisons.
+%
+% Plots the following:
+% - mse distributions
+% - Note: It is possible to calculate other distribution by adding the
+%       calculation to flow.compare_flow_fields.
+%
 % Inputs:
 %   A_int_rot   Flow field comparision between the intuitive and rotated
 %   A_pred_rot  Flow field comparision between the predicted and rotated
 %   stats       Structure containing results of statistical tests
 %
+% Optional Inputs:
+%   subject                 Subject ID
+%   dataset                 Experiment ID
+%   edges                   Bin edges for error distribution
+%   metric_str              Metric name in the structure (default: mse)
+%
+% Outputs:
+%   F   Figure handle
+%
 % Copyright (C) by Alan Degenhart and Erinn Grigsby
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-function [h] = plot_session_stats(A_int_rot, A_pred_rot, stats)
+function [h] = plot_session_stats(A_int_rot, A_pred_rot, stats,varargin)
+subject = '';           % Subject ID
+dataset = '';           % Experiment ID
+edges = 0:50:1500;      % Bin edges for error distribution
+metric_str = 'mse';     % Metric name in the structure 
+
+assignopts (who, varargin);
+
+% Filled the undefined varables if information is available in the data
+if isfield(A_int_rot,'F_base') 
+    if isempty(subject)
+        subject = A_int_rot.F_base.subject;
+    end
+    if isempty(dataset)
+        dataset = A_int_rot.F_base.dataset;
+    end
+end
 
 % Setup figure
 n_row = 1;
-n_col = 3;
+n_col = 1;
 axSz = 300;
 axSp = 75;
 [fW,fH,Ax] = plt.calcFigureSize(n_row,n_col,axSz,axSz,axSp);
 
 h = figure('Position',[10 10 fW fH]);
-subject = A_int_rot.F_base.subject;
-dataset = A_int_rot.F_base.dataset;
-fig_str = sprintf('%s%s_FlowAnalysis_ErrorDist', subject, dataset);
-fName = sprintf(fig_str);
+fName = sprintf('%s%s_FlowAnalysis_ErrorDist', subject, dataset);
 set(h,'Name',fName)
 
-% Plot distributions - angular error
-plt.subplotSimple(n_row, n_col, 1, 'Ax', Ax); hold on;
-edges = 0:15:180;
-plot_metric_dist( ...
-    A_int_rot.ang.valid, ...
-    A_pred_rot.ang.valid, ...
-    stats.pvals.ang.name, ...
-    edges, ...
-    stats.pvals.ang.p)
-
-% Plot distributions - magnitude error
-plt.subplotSimple(n_row, n_col, 2, 'Ax', Ax); hold on;
-edges = 0:5:100;
-plot_metric_dist( ...
-    A_int_rot.mag.valid, ...
-    A_pred_rot.mag.valid, ...
-    stats.pvals.mag.name, ...
-    edges, ...
-    stats.pvals.mag.p)
-
 % Plot distributions - mean squared error
-plt.subplotSimple(n_row, n_col, 3, 'Ax', Ax); hold on;
-edges = 0:50:1000;
+plt.subplotSimple(n_row, n_col, 1, 'Ax', Ax); hold on;
 plot_metric_dist( ...
-    A_int_rot.mse.valid, ...
-    A_pred_rot.mse.valid, ...
-    stats.pvals.mse.name, ...
+    A_int_rot.(metric_str).valid, ...
+    A_pred_rot.(metric_str).valid, ...
+    stats.pvals.(metric_str).name, ...
     edges, ...
-    stats.pvals.mse.p)
+    stats.pvals.(metric_str).p)
 
 % Plot figure title
 title_str = sprintf('%s %s :: Flow analysis :: Error distributions', ...
@@ -72,17 +81,13 @@ font_size.label = 14;
 font_size.tick = 14;
 font_size.title = 14;
 
-% Get bin counts
-hist_cts_int_rot = histcounts(x_int_rot, edges);
-hist_cts_pred_rot = histcounts(x_pred_rot, edges);
-
 % Plot histogram
 col = {ones(1, 3) * 0.5, [66, 135, 245]/255};
-ax_h_int_rot = histogram('BinEdges', edges, 'BinCounts', hist_cts_int_rot, ...
+ax_h_int_rot = histogram(x_int_rot, edges, ...
     'DisplayStyle', 'stairs', ...
     'EdgeColor', col{1}, ...
     'LineWidth', 2);
-ax_h_pred_rot = histogram('BinEdges', edges, 'BinCounts', hist_cts_pred_rot, ...
+ax_h_pred_rot = histogram(x_pred_rot, edges, ...
     'DisplayStyle', 'stairs', ...
     'EdgeColor', col{2}, ...
     'LineWidth', 2);

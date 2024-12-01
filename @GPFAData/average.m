@@ -13,7 +13,6 @@ function GPavg = average(GP,varargin)
 %                    Currently only valid for the start and end align modes.
 %
 % Authors:  Alan Degenhart and Erinn Grigsby
-% Created:  2017.02.16
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 

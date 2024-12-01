@@ -1,4 +1,4 @@
-classdef GPFAData < HSTData
+classdef GPFAData 
     properties
         % Data
         trialId = [];       % Unique trial number
@@ -25,7 +25,7 @@ classdef GPFAData < HSTData
     end  % End or properties
     
     methods
-        function GP = GPFAData(); end;  % Class constructor
+        function GP = GPFAData(); end  % Class constructor
         
         % Access methods
         GP = setOnsetIdx(GP,tOnset,varargin);

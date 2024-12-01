@@ -7,7 +7,19 @@ function c = interpColor(n,sF,map,wrapOption,varargin)
 % distributed evenly over the specified colomap.  This function is intended
 % for conditions where object colors are intended to vary gradually.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Inputs:
+%   n              Number of points.
+%   sF             Color scale factor
+%   map            Defined colormap
+%   wrapOption     Define how to interpolate the data.
+%   
+% Optional Inputs:
+%   valueScale     Sets the value range.
+% 
+% Outputs:
+%   c               Colormap matrix
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments

@@ -17,9 +17,7 @@ function [tPos,sz] = getTargetPosition(trial,stateName,targetName,varargin)
 %   sz          Size of specified target (radius?)
 %
 % Author:  Alan D. Degenhart
-% Date Created: 2015/01/12
-% Last Updated: 2015/01/12
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments

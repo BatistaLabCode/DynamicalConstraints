@@ -18,7 +18,6 @@ subject = TD(1).subject;
 date = TD(1).date;
 nTrials = length(TD);
 
-block = nan(1,nTrials);
 successCode = nan(1,nTrials);
 trialNo = nan(1,nTrials);
 
@@ -33,7 +32,6 @@ for i = 1:nTrials
     util.commandline_progress(cmd_prog, i);
     
     % Get data for trial
-    block(i) = TD(i).tag;
     successCode(i) = logical(TD(i).successful);
     trialNo(i) = TD(i).trialID;
 
@@ -49,7 +47,6 @@ trialInfo.date = date;
 trialInfo.filename = fileBase;
 trialInfo.nTrials = nTrials;
 trialInfo.trialNo = trialNo;
-trialInfo.block = block;
 trialInfo.successCode = successCode;
 
 save([dataDir '/' fileBase '_trialInfo.mat'],'trialInfo')

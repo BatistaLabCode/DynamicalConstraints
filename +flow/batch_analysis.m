@@ -4,7 +4,10 @@
 %   flow.batch_analysis
 %
 % This function iterates over all two-target intuitive and rotated datasets
-% and runs the 'flow.main_analysis' function.
+% and runs the 'flow.main_analysis' function. This will create a FlowResult
+% structure for every valid session in the exSessDataLoc from serverPath.
+%
+% See: flow.main_analysis for description of the FlowResult structure.
 %
 % Optional Inputs:
 %   data_save_loc  Location to save flow field batch data.
@@ -12,31 +15,35 @@
 %                   filename <<publicationQualitySessions.mat>>
 %   task_list      Tasks to calculate the flow field for.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart 
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
 function batch_analysis(varargin)
 
 % Define locations to save results structure
-data_save_loc = 'F:\Erinn\testSave\FlowComparison\mat';
+data_save_loc = [];
 D = [];
 task_list = { ...
     'tt_int',... % Shorthand flag for Two target intuitive
     'tt_rot'};   % Shorthand flag for Two target rotated
 assignopts (who, varargin);
 
+dataLoc = serverPath;
+if isempty(data_save_loc)
+    data_save_loc = fullfile(dataLoc,'flowAnalysis','mat');
+end
+
 % Load dataset info
 if isempty(D)
-    [File_D, loc_D] = uigetfile('*.mat','Load the file containing the summary of sessions');
-    load([loc_D File_D])
+    load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 end
 
 % Collect the directory information for valid files.
 dir_list = db.get_task_datasets(D, task_list);
 
-% Determine the number of sessions with a volid location for the data
-mask = cellfun(@(x) length(x)>0,[dir_list(:,1).trajectory]);
+% Determine the number of sessions with a valid location for the data
+mask = cellfun(@(x) ~isempty(x),[dir_list(:,1).trajectory]);
 dir_list = dir_list(mask,:);
 
 % Iterate over task datasets

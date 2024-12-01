@@ -8,10 +8,18 @@ function saveFigurePDF(F,saveDir,varargin)
 % the figure as the saved PDF file name, so this property must be set
 % before this function is called.
 %
+% Inputs:
+%   F               Figure handle
+%   saveDir         Save location path name
+%
+% Optional Inputs:
+%   appendFiles     Combine all figures into a single PDF
+%   appendName      Combined PDF's file name
+%   closeFigs       Close figures after successful saving
+%
 % Author:       Alan D. Degenhart
-% Created:      2016.11.23
-% Copyright (C) by Alan Degenhart
-% Email: alan.degenhart@gmail.com
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Optional arguments
 appendFiles = false;

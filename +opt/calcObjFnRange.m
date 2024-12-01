@@ -1,11 +1,18 @@
 function J = calcObjFnRange(P, obj_params, varargin)
 % Uses the calculated optimized data, simplified for offline.
 % 
+% Inputs:
+%   P       Structure containing necessary data
+%   obj_params  Structure of objective function parameters
+%
 % Optional Inputs:
 %   N       Number of iterations
 %   objFn   Objective function to iterate over
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Outputs:
+%   J       Value of objective function
+%   
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 N = 10000;
@@ -27,8 +34,8 @@ for i = 1:N
     % Find value of objective function
     switch objFn
         case 'standard'
-            J(i) = standard_obj(M, P, obj_params);
+            J(i) = opt.standard_obj(M, P, obj_params);
         case 'distSq'
-            J(i) = distSq_obj(M, P, obj_params);
+            J(i) = opt.distSq_obj(M, P, obj_params);
     end
 end

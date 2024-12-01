@@ -3,24 +3,40 @@ function F = plotIntermediateTargetTaskTrajectories(TD,C,fName,varargin)
 %
 % Inputs:
 %   TD      TrajectoryData object
+%   C       Colormap struct
+%   fName   Name for title and figure ID
 %
-% Author:           Alan Degenhart
-% Date Created:     2018.08.09
-% Date Updated:     2018.11.07
+% Optional Inputs:
+%   createFigure        Create a figure
+%   plotIntTarg         Plot the intermediate target
+%   plotStates          Determine which task states to plot
+%   plotScale           Axis Limits
+%   plotTubes           Plot the tube boundary
+%   plotSegment         Plot only portions of the tube
+%   avgMode             Average method for the trajectories
+%   r_factor            Factor used for spatial averaging
+%   trialsPerCondition  Number of trials to subselect for plotting
+%   setRandSeed         Fix the random number generator for a consistenet
+%                           permutation for trial subselection.
+%   rmvFail             Remove failed trials
+%
+% Outputs:
+%   F               Figure with 4 panels of trajectories.
+%
+% Author: Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-centerPos = [0 0 0];
+createFigure = true;
 plotIntTarg = false;
-plotScaleFactor = 1.25;
 plotStates = {'Step 2'};
 plotScale = [];
 plotTubes = false;
 plotSegment = [];
-trialsPerCondition = [];     % Allow for subselection of trials
-createFigure = true;
-col = [.8 .15 0;0 .6 .85];
 avgMode = 'spatial';
-setRandSeed = [];
 r_factor = 0.1;  % Factor used for spatial averaging
+trialsPerCondition = [];     % Allow for subselection of trials
+setRandSeed = [];
 rmvFail = 1;
 
 assignopts(who,varargin);

@@ -1,10 +1,27 @@
-% flow.batch_create_session_figs  Create figs for all session
-% experiments.
+% flow.plot_all_session_summary  Creates a summary scatter plot of all
+% sessions comparing A_int_rot and A_pred_rot. Significant markers will be
+% filled and the NS markers will be hallow. It is possible to highlight an
+% example session as well.
 %
 % Usage:
-%   flow.batch_create_session_figs()
+%   h = flow.batch_create_session_figs()
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Optional Inputs:
+%   highlight_exp      Highlight example sessions
+%   data_save_loc      Location to save flow field session data
+%   fig_save_loc       Location to save flow field session figures
+%   pltLegend          Determine whether to plot the legend
+%   plotOverlap        Determine whether to plot a scatter of the number of
+%                           voxel overlap
+%   xTextOffset        Distance between the text printed on the screen
+%   measMet            Plot the median and mean metric values
+%   metric_str         Metric name in the structure
+%   metric_plot_title  Metric name for printing text 
+%
+% Outputs:
+%   h               Summary figure
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart 
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
@@ -16,22 +33,18 @@ data_save_loc = [];
 fig_save_loc = [];
 pltLegend = 1;
 plotOverlap = 0;
-xTextOffset = 0.6; %0.025
+xTextOffset = 0.6;
 measMet = 'median'; % Will either plot the median and mean metric values
 
 % Define metrics to analyze
-metric_str = {'ang', 'mag', 'mse'};
-metric_plot_title = {...
-    'Angular error', ...
-    'Magnitude error', ...
-    'Mean squared error'};
+metric_str = {'mse'};
+metric_plot_title = {'Mean squared error'};
 
 assignopts(who, varargin);
 
 % Load all data
 FR = flow.load_session_results('data_save_loc',data_save_loc);
 n_metric = length(metric_str);
-
 
 % Determine index to highlight
 if ~isempty(highlight_exp)
@@ -66,7 +79,7 @@ p_vals = [stats.pvals];
 
 % Get subject information
 subAll = {FR.subject};
-uniSubj = {'monkeyE','monkeyD','monkeyQ'};
+uniSubj = {'Monkey E','Monkey D','Monkey Q'};
 marker = {'ko','md','cs'};
 plotSub = 1;
 % Iterate over error metrics
@@ -111,7 +124,7 @@ for i = 1:n_metric
             'VerticalAlignment', 'top', ...
             'FontSize', font_size)
     else
-        [ptsLab(n),LEGEND{n}] = plot_error(err_int_rot, err_pred_rot, p, metric_plot_title{i}, hlt_idx)
+        [ptsLab(n),LEGEND{n}] = plot_error(err_int_rot, err_pred_rot, p, metric_plot_title{i}, hlt_idx);
     end
 
 end
@@ -196,7 +209,7 @@ p_mask = p < 0.05;
 scatter(err_int_rot(~p_mask), err_pred_rot(~p_mask), 10, marker, ...
     'MarkerFaceColor', 'none')
 ptsLab = scatter(err_int_rot(p_mask), err_pred_rot(p_mask), 10, marker, ...
-    'MarkerFaceColor', 'flat')
+    'MarkerFaceColor', 'flat');
 
 % Get axis limits
 x_lim = get(gca, 'XLim');

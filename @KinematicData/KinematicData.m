@@ -1,14 +1,13 @@
-classdef KinematicData < HSTData
-    % Kinematic Data class
-    %
-    % This class contains time-varying kinematic data, including position,
-    % velocity, and acceleration data.
-    %
-    % Copyright (C) by Alan Degenhart and Erinn Grigsby
-    % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+classdef KinematicData 
+% Kinematic Data class
+%
+% This class contains time-varying kinematic data, including position,
+% velocity, and acceleration data.
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
     properties
         % Kinematics
-        
         time = [];  % Time
         pos = [];   % Position
         vel = [];   % Velocity

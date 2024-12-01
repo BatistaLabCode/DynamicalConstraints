@@ -1,7 +1,7 @@
 function trajectory(GP,varargin)
 % Plot GPFA trajectory colored by target
 %
-% GP.plot(tC)
+% GP.trajectory(tC)
 %
 % Inputs:
 %   GP             GPFA object
@@ -10,9 +10,27 @@ function trajectory(GP,varargin)
 % Optional Arguments:
 %   targSubset      Subset of targets to plot
 %   fracTrials      Fraction of trials to plot at random.
+%   condCode        Condition code (used for setting colors)
+%   plotPreOnset    Pre-onset data if onset index is specified
+%   xSpec           Latent space
+%   plotMode        Plotting mode
+%   plotDim         Defined dimensions to plot
+%   colorMode       Determine the color code
+%   col             Color place holder
+%   colorIndMode    'normal': use unique target number for identifying colors
+%   targetID        How to label/identify the conditions
+%   lineStr         Default line type
+%   markerSiz       End point marker size
+%   markerScale     Scale for arrow marker
+%   plotLegend      Don't plot legend by default
+%   plotAxLabels    Plot axis labels by default
+%   lineWidth       Width of trajectories
+%   lineWidthavg    Width of average trajectories
+%   preOnsetSamp    Number of pre onset samples to plot
+%   ColMat          Colormap structure place holder
+%   colInfo         Color Info
 %
 % Author:   Alan D. Degenhart
-% Created:  2017.02.16
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 

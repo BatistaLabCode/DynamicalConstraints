@@ -13,8 +13,8 @@
 %   yScale    Display y scale bar
 %   fontSize  font size
 %
-% Copyright (C) by Alan Degenhart
-% Email: alan.degenhart@gmail.com
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function scaleBar(ax, d, unitStr, varargin)
 

@@ -56,7 +56,7 @@ end
 % Create the plots for figure 4
 if ismember(4,plotFig)
     tic,
-    [F4_proj] = fig_4_plot_view_vs_projections(dataLoc, ...
+    [F4_proj] = fig_4_plot_View_vs_Projections(dataLoc, ...
         'saveFig',saveFig,'savePathBase',saveFigLoc);
     figTime(3) = toc;
     tic,

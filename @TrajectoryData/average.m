@@ -1,6 +1,8 @@
 function TDavg = average(TD,varargin)
-% TDavg = average(TD,varargin) or TDavg = TD.average(varargin)
 % Average method for TrajectoryData class
+%
+% Usage:
+%   TDavg = average(TD,varargin) or TDavg = TD.average(varargin)
 %
 % This function averages the trajectories contained in the provided
 % trajectory data object array.
@@ -28,6 +30,9 @@ function TDavg = average(TD,varargin)
 %                       to start and end of the given task states.
 %                       Otherwise the start or end of the trial.
 %
+% Outputs:
+%   TDavg      Average trajectoryData object
+%
 % Authors:  Alan Degenhart and Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
@@ -35,10 +40,10 @@ function TDavg = average(TD,varargin)
 % Optional arguments
 N = 100; % Number of data points to interpolate over.
 nDim = 2; % Currently only use 2D
-avgMode = 'interp';     % Method to use to perform averaging.
+avgMode = 'samp';     % Method to use to perform averaging.
 sampQuantCutoff = 0.5;  % Quantile to determine sample cutoff ('samp' average mode only)
 r_factor = 0.15;  % Scale factor used for spatial averaging (fraction of target-to-target distance)
-kinSource = {'hand','brain','perturb'};
+kinSource = {'brain'};
 avgStates = [];
 alignStates = [];
 
@@ -161,7 +166,7 @@ for i = 1:nTarg
                     end
                 end
                 
-                trajData = spatialAverage(trajData, 'r_factor', r_factor);
+                trajData = util.spatialAverage(trajData, 'r_factor', r_factor);
         end
         
         % Put data into new KinematicData object
@@ -174,13 +179,9 @@ for i = 1:nTarg
     
     % Place average data into new trajectory object array
     TDavg(i).successful = true;
-    TDavg(i).kinTime = [];      % No longer needed (should be in KinematicData object)
-    TDavg(i).pos = [];          % No longer needed (should be in KinematicData object)
     TDavg(i).startPos = TDtemp(1).startPos;
     TDavg(i).targPos = TDtemp(1).targPos;
     TDavg(i).targSize = TDtemp(1).targSize;
     TDavg(i).targetCode = TDtemp(1).targetCode;
-    TDavg(i).cursorSize = TDtemp(1).cursorSize;
     TDavg(i).averaged = 1;
-    TDavg(i).controlSource = TD(i).controlSource;
 end

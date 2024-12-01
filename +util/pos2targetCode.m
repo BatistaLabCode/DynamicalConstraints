@@ -1,11 +1,21 @@
 function [tc,M] = pos2targetCode(pos,varargin)
+% [tc,M] = pos2targetCode(pos,varargin)
+% 
 % Convert target positions to unique target codes
 %
 % Inputs
 %   pos         N x nDim matrix of position data
 %
+% Optional Inputs:
+%   centerPos   Center of the workspace
+%   dim         Determine if the target code if calculated in 2 or 3D
+% 
 % Outputs
 %   tc          Target code identifier vector
+%   M           Structure with position/angle/tc maps
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 centerPos = [];
 dim = 2;
@@ -49,7 +59,7 @@ for i = 1:nTrials
     tc(i) = IC(i);
 end
 
-% Creat position/angle/tc map.  This is useful to resolve target locations
+% Create position/angle/tc map.  This is useful to resolve target locations
 % from the target code information.
 pos = pos + repmat(centerPos,nTrials,1);
 m = [tc ang pos];

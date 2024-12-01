@@ -1,8 +1,28 @@
 function [axObj,axLim] = matchAxis(graphObj,varargin)
-%% Match the axis limits of multiple axis and figures
+% Match the axis limits of multiple axis and figures
 % Enables you to automatically match the axis limits of different figures
-% and axes.
+% and axes. This function will recursively call itself to capture on
+% graphical objects and their children.
 %
+% Inputs:
+%   graphObj        Graphical objects
+%
+% Optional Inputs:
+%   setLimits       Structure that will store the overall axis limits that 
+%                       will be apply universal to input graphical objects.
+%   viewRot         View Orientation
+%   setX            Apply resizing to x range
+%   setY            Apply resizing to y range
+%   setZ            Apply resizing to z range
+%   setR            Apply resizing to radiue range
+%   equalAx         Tag to make the axis ranges equal for x and y
+%   setTheta        Apply resizing to theta range
+% 
+% Outputs:
+%   axObj           List of axes objects.
+%   axLim           Axis limits.
+%
+% Created by Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 

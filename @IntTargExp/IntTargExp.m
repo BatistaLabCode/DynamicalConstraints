@@ -1,6 +1,6 @@
 % Class definition for intermediate target experiment
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 classdef IntTargExp
     properties
@@ -12,18 +12,11 @@ classdef IntTargExp
         % Information about specific blocks
         unconstrainedBlockDir = [];
         constrainedBlockDir = [];
-        unconstrainedWashoutBlockDir = [];
-        ttIntBlockDir = [];
         ttRotBlockDir = [];
         
         % Trajectory data objects
         TDunconstrained = [];
         TDconstrained = [];
-        TDunconstrainedWashout = [];
-        TD_tube_best = [];
-        TD_unconst_tube = [];
-        TD_unconst_tube_washout = [];
-        TD_tt_int = [];
         TD_tt_rot = [];
         
         % Tube information
@@ -32,13 +25,9 @@ classdef IntTargExp
         tubeObject = [];
         
         % Performance metrics
-        block_size = [];
-        performanceHit = [];
-        performanceRecovery = [];
+        block_size = []; 
         successRate = [];
-        expectedSuccessRate = [];
-        expectedSuccessRate_washout
-        
+        predictedSuccessRate = [];
     end
     
     methods

@@ -1,8 +1,20 @@
 function plotDatasetInfo(subject,date,trialID,varargin)
 % Plot dataset info on current figure
 %
-% plotDatasetInfo(subject,date,trialID)
+% Useage:
+%   plotDatasetInfo(subject,date,trialID)
 %
+% Inputs:
+%   subject    Subject ID
+%   date       Session date
+%   trialId    Trial number
+%
+% Optional Inputs:
+%   plotMode        Determine if the information is plotted on a figure or
+%                       on a axis.
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 plotMode = 'figure';
 

@@ -1,6 +1,26 @@
-% compare_flow_fields       Compare flow fields between conditions
+% flow.compare_flow_fields       Compare flow fields between conditions
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Usage:
+%   [S] = flow.calc_session_stats(FF_base, FF_comp)
+%
+% This function calculates the MSE distribution when comparing the two flow
+% fields. It is possible to calculate other distributions by added
+% additional calculations to this function.
+%
+% Inputs:
+%   FF_base        Flow field for one condition
+%   FF_comp        Flow field for the second condition
+%
+% Optional Inputs:
+%   cond_str       Condition comparison label
+%   saveRaw        Save the original flow fields to the output structure.
+%   saveSimp       Save a reduced structure that does not include grid info
+% 
+% Outputs:
+%   A              Structure that includes the stat comparison and the
+%                    number of overlapping voxels between conditions.
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart 
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [A] = compare_flow_fields(FF_base, FF_comp, varargin)
@@ -14,8 +34,6 @@ assert(FF_base.grid.d_grid == FF_comp.grid.d_grid, ...
 
 % Loop over grid
 n_grid = length(FF_base.grid.grid) - 1;
-ang_diff_grid = nan(n_grid, n_grid);
-mag_diff_grid = nan(n_grid, n_grid);
 mse_grid = nan(n_grid, n_grid);
 for i = 1:n_grid
     for j = 1:n_grid
@@ -26,42 +44,22 @@ for i = 1:n_grid
         % Compare angle between conditions.  Need to verify that both
         % velocity vectors are valid (i.e., non-nan)
         if sum(isnan([v_base, v_comp])) == 0
-            ang_base = atan2d(v_base(2), v_base(1));
-            ang_comp = atan2d(v_comp(2), v_comp(1));
-            ang_diff = abs(ang_base - ang_comp);
-            
-            % Correct for angles > 180
-            if ang_diff > 180; ang_diff = ang_diff - 180; end
-            
-            % Calculate difference in magnitude
-            mag_diff = abs(norm(v_base) - norm(v_comp));
+            % Calculate mean squared error
             mean_sq_err = mean((v_base - v_comp).^2);
             
             % Add result to grid
-            ang_diff_grid(i, j) = ang_diff;
-            mag_diff_grid(i, j) = mag_diff;
             mse_grid(i, j) = mean_sq_err;
         end
     end
 end
 
 % Put results in structure
-valid_mask = ~isnan(ang_diff_grid);
+valid_mask = ~isnan(mse_grid);
 
 if saveSimp
     % Add raw data
     A.condition = cond_str;
     A.n_valid = sum(sum(valid_mask));
-    
-    % Angular error
-    A.angValid = ang_diff_grid(valid_mask)';
-    A.angMean = mean(A.angValid);
-    A.angMedian = median(A.angValid);
-    
-    % Magnitude error
-    A.magValid = mag_diff_grid(valid_mask)';
-    A.magMean = mean(A.magValid);
-    A.magMedian = median(A.magValid);
     
     % Mean squared error
     A.mseValid = mse_grid(valid_mask)';
@@ -75,18 +73,6 @@ else
         A.F_comp = FF_comp;
     end
     A.n_valid = sum(sum(valid_mask));
-    
-    % Angular error
-    A.ang.grid = ang_diff_grid;
-    A.ang.valid = ang_diff_grid(valid_mask);
-    A.ang.mean = mean(A.ang.valid);
-    A.ang.median = median(A.ang.valid);
-    
-    % Magnitude error
-    A.mag.grid = mag_diff_grid;
-    A.mag.valid = mag_diff_grid(valid_mask);
-    A.mag.mean = mean(A.mag.valid);
-    A.mag.median = median(A.mag.valid);
     
     % Mean squared error
     A.mse.grid = mse_grid;

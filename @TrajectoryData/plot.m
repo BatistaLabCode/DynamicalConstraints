@@ -1,6 +1,64 @@
 function plot(TD,varargin)
 % plot          Plotting function for trajectoryData class
 %
+% Usage:
+%   TD.plot()
+%
+% There are numerous optional arguments to adjust the plot including color
+% settings, subselecting trials, trajectory parameters, target parameters,
+% etc. See full list of options below, grouped by function.
+%
+% Optional Inputs:
+%   1) Define trial and timings to plot:
+%       trialsPerTarg     Allows for subselection of trials
+%       setRandSeed       Allows user to fix the random permutation for trial 
+%                            subselection. Default: randomization not fixed.
+%       plotStates        Plot only the desired states.
+%       plotSubSetTimePt  Plot only the desired number of time points.
+%       flipSubSet        Determine whether the desired number of time
+%                            points is taking from the start or end of the
+%                            trajectory.
+%   2) Defines colors:
+%       colorMap          Default color map to use
+%       color             Specify exact color, this will overwrite the default
+%       nCol              Number of colors to use
+%       ColMat            Use a color map structure with target definitions
+%       trajColorWeight   Saturation of the trajectory color
+%       targetFaceCol     Define target face color, overwrites the default
+%       sF                Scale factor for target colors
+%       intTargCol        Set intermediate target color. Default-Light gray
+%       intTargEdgeCol    Set intermediate target edge color.
+%       targColMatIdx     Determine whether to plot the targets light (1) 
+%                             or dark (2)
+%   3) Define trajectory options:
+%       plotTrajectories  Determines whether to plot the trajectories
+%       lineWidth         Width of trajectories
+%       lineStyle         Line type default '-'
+%       markerSize        Size of the display marker
+%       startMarker       Define the marker for the start of the trajectory.
+%       endMarker         Define the marker for the end of the trajectory. 
+%                           This includes an arrow though it will just be a
+%                           visualization and not an exact match to arrows
+%                           defined with illustrator.
+%   4) Define target options:
+%       plotTargets       Determines whether to display the targets
+%       plotStartTarg     Plot start target
+%       plotEndTarg       Plot end target
+%       plotIntTarg       Plot targets for intermediate states
+%       targetScale       Scale factor for the target size
+%       targetStyle       Target style (circle or square)
+%       targetLineColor   Target outline color
+%       targetLineStyle   Define target line style
+%       intTargWidth      Set the intermediate target line width
+%       plotTargNum       Determine whether to display the target number
+%       fontSize          Target Font Size
+%       uniTargNum        Determine whether to plot the unique target 
+%                           number or the unique condition number.
+%   5) Define plotting options:
+%       verbose           Display messages
+%       plot3d            Determine if the trajectories should plot in 3D
+%       axesLimits        Axis limits
+%
 % Note: do not need to worry about the cursor radius here, as the actual
 % target window requirements are such that if the *center* of the cursor is
 % inside of the window, the window requirements have been met.  We
@@ -10,57 +68,67 @@ function plot(TD,varargin)
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-% Set default values for optional arguments
-colorMap = 'hsv';
-trajColorWeight = 1;
-color = [];
-plotTargets = 1;
-plotTrajectories = 1;
-targetLineColor = 'k';
-markerSize = [];
-kinSource = [];         % Kinematic source to plot ('hand' or 'brain')
-axesLimits = [];
+%% Set default values for optional arguments
+
+% Define trial and timings to plot
+trialsPerTarg = [];     % Allows for subselection of trials
+setRandSeed = [];       % Allows user to fix the random permutation for trial 
+                        %   subselection. Default: randomization not fixed.
+plotStates = [];        % Plot only the desired states.
+plotSubSetTimePt = [];  % Plot only the desired number of time points.
+flipSubSet = false;     % Determine whether the desired number of time
+                        %   points is taking from the start or end of the
+                        %   trajectory.
+
+% Defines colors
+colorMap = 'hsv';       % Default color map to use
+color = [];             % Specify exact color, this will overwrite the default
 nCol = [];              % Number of colors to use
+ColMat = [];            % Use a color map structure with target definitions
+trajColorWeight = 1;    % Saturation of the trajectory color
+targetFaceCol = [];     % Define target face color, overwrites the default
 sF = 0.75;              % Scale factor for target colors
-targetScale = 1;        % Scale factor for the target size
-fontSize = 24;          % Target Font Size
-lineWidth = [];        % Width of trajectories
+intTargCol = .9*[1 1 1];% Set intermediate target color. Default: light gray
+intTargEdgeCol = .5*[1 1 1]; % Set intermediate target edge color.
+targColMatIdx = 1;      % Determine whether to plot the targets light (1) 
+                        %   or dark (2)
+
+% Define trajectory options
+plotTrajectories = 1;   % Determines whether to plot the trajectories
+lineWidth = [];         % Width of trajectories
 lineStyle = [];         % Line type default '-'
-markerStyle = 'none';   % Marker style to use (trajectories only)
-targetStyle = 'circle'; % Target style (circle or square)
-trialsPerTarg = [];     % Allow for subselection of trials
-setRandSeed = [];       % Allow to fix the random permutation for trial 
-                        % subselection. Default: randomization is not
-                        % fixed.
+markerSize = [];        % Size of the display marker
+startMarker = 'o';      % Define the marker for the start of the trajectory.
+endMarker = 'o';        % Define the marker for the end of the trajectory. 
+                        %   This includes an arrow though it will just be a
+                        %   visualization and not an exact match to arrows
+                        %   defined with illustrator.
+
+% Define target options
+plotTargets = 1;        % Determines whether to display the targets
 plotStartTarg = false;  % Plot start target
 plotEndTarg = true;     % Plot end target
 plotIntTarg = false;    % Plot targets for intermediate states
-plotSubSetTimePt = [];  % Plot only the desired number of time points.
-flipSubSet = false;     % Determine whether the desired number of time
-targColMatIdx = 1;      % Determine whether to plot the targets light (1) or dark (2);
-                        % points is taking from the start or end of the
-                        % trajectory.
-plotStates = [];        % Plot only the desired states.
-plotLegend = false;
+targetScale = 1;        % Scale factor for the target size
+targetStyle = 'circle'; % Target style (circle or square)
+targetLineColor = 'k';  % Target outline color
+targetLineStyle = '-';  % Define target line style
 intTargWidth = 1.5;     % Set the intermediate target line width
-intTargCol = ones(1,3)*.9;  % Set intermediate target color. Currently plot in light gray.
-intTargEdgeCol = ones(1,3)*.5; % Set intermediate target edge color.
-uniTargNum = false;     % Determine whether to plot the unique target number or the unique condition number.
-plotTargNum = true;
-targetFaceCol = [];
-targetLineStyle = '-';
-startMarker = 'o';
-endMarker = 'o';
-ColMat = [];
-verbose = true;         % Display messages
-plot3d = false;
-forceData = '';         % Determine which force data to plot
+plotTargNum = true;     % Determine whether to display the target number
+fontSize = 24;          % Target Font Size
+uniTargNum = false;     % Determine whether to plot the unique target 
+                        %   number or the unique condition number.
 
-% Parse optional agruments
+% Define plotting options
+verbose = true;         % Display messages
+plot3d = false;         % Determine if the trajectories should plot in 3D
+axesLimits = [];        % Axis limits
+
+
+%% Parse optional agruments
 assignopts(who,varargin);
 
 nTrials = length(TD);
-
 hold on
 
 % Set line width.  If this is specified, use the provided value. If not,
@@ -87,7 +155,6 @@ tcStart = tcStart(1:size(startPos,1));
 
 % Get unique target combinations
 tcComb = [tcStart tcEnd];
-targComb = unique(tcComb,'rows');
 
 % Allow for user to speficy the number of colors to interpolate over.  This
 % handles the case where fewer than the full number of unique targets in a
@@ -132,13 +199,6 @@ switch targetStyle
         curv = [1 1];
     case 'square'
         curv = [0 0];
-end
-
-% Determine if kinematic source is specified or should be determined
-% automatically
-useDefaultKinSource = true;
-if ~isempty(kinSource)
-    useDefaultKinSource = false;
 end
 
 if plotTargets
@@ -325,35 +385,9 @@ if plotTrajectories
             cTemp = hsv2rgb(cHSV);
         end
 
-        % Get position data.  This can be either the hand position or the
-        % brain-controlled cursor position.  By default, the cursor being
-        % used for task progression is plotted.
-        if useDefaultKinSource
-            switch TD(i).controlSource
-                case {'Neural Decoder','Auto-monkey'}
-                    kinSource = 'brain';
-                case {'Phasespace'}
-                    kinSource = 'hand';
-                case {'Force Cursor'}
-                    kinSource = 'force';
-                case {'Perturbation'}
-                    kinSource = 'perturb';
-            end
-        end
-        srcStr = [kinSource 'Kin'];
-        if strcmp(srcStr,'forceKin')
-            time = TD(i).(srcStr).time;
-            switch forceData
-                case {'cursor',''}
-                    pos = TD(i).(srcStr).pos;
-                case {'torque'}
-                    pos = TD(i).(srcStr).torque(:,time)';
-                case {'force'}
-                    pos = TD(i).(srcStr).force(:,time)';
-            end
-        else
-            pos = TD(i).(srcStr).pos;
-        end
+        % Get position data.  
+        srcStr = 'brainKin';
+        pos = TD(i).(srcStr).pos;
 
         % Select line style based on trial success if line Style is empty
         if isempty(lineStyle)
@@ -424,8 +458,7 @@ if plotTrajectories
             if plot3d
                 % Plot entire trajectory
                 plot3(pos(:,1),pos(:,2),pos(:,3),'color',cTemp,...
-                    'MarkerSize',markerSize,'LineWidth',lineWidth,...
-                    'marker',markerStyle,'LineStyle',lineStyleTemp)
+                    'LineWidth',lineWidth,'LineStyle',lineStyleTemp)
                 % Plot start position
                 plot3(pos(1,1),pos(1,2),pos(1,3),startMarker,'MarkerSize',...
                     markerSize/2,'MarkerFaceColor',cTemp, 'MarkerEdgeColor','None')
@@ -435,9 +468,8 @@ if plotTrajectories
                     'MarkerEdgeColor', 'k')
             else
                 % Plot entire trajectory
-                plot(pos(:,1),pos(:,2),'color',cTemp,'MarkerSize',...
-                    markerSize,'LineWidth',lineWidth,'marker',...
-                    markerStyle,'LineStyle',lineStyleTemp)
+                plot(pos(:,1),pos(:,2),'color',cTemp,...
+                    'LineWidth',lineWidth,'LineStyle',lineStyleTemp)
                 % Plot start position
                 if ~isempty(startMarker)
                     plot(pos(1,1),pos(1,2),startMarker,'MarkerSize',...
@@ -464,29 +496,7 @@ end
 set(gca,'Box','on')
 
 if ~isempty(axesLimits)
-    set(gca,'XLim',axesLimits(1:2),'YLim',axesLimits(3:4))
-    axis square
-    axis off
-else
-    % If no axes limits are provided, scale to 125% of the maximum target
-    % distance.  Only do this if more than one target is present.
-
-    targPos = [TD.targPos]';
-    targPos = unique(targPos,'rows');
-
-    if size(targPos,1) > 1 % if more than 1 unique target is present
-        maxPos = max(targPos,[],1);
-        minPos = min(targPos,[],1);
-        deltaPos = maxPos - minPos; % Edge-to-edge distance
-        plotMarg = max(deltaPos)*1.5;
-
-        centerPos = minPos + deltaPos/2;
-        xLim = [-1 1]*plotMarg/2 + centerPos(1);
-        yLim = [-1 1]*plotMarg/2 + centerPos(2);
-
-        %set(gca,'XLim',xLim,'YLim',yLim)
-    end
-
-    axis square
-    axis off
+    set(gca,'XLim',axesLimits(1:2),'YLim',axesLimits(3:4))    
 end
+axis square
+axis off

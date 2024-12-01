@@ -45,7 +45,7 @@ pltIdx = [7 3;5 1;8 4; 2 6];   % If you need to adjust the plotting order,
 assignopts(who,varargin);
 
 % Determine the sessions with the correct data
-load(fullfile(dataLoc,'publicationQualitySessions.mat'));
+load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 D = D(ismember({D.dataset},exampleSess));
 dir_list = db.get_task_datasets(D,taskType);
 

@@ -1,16 +1,35 @@
 function F = plot(GP,plotDim,varargin)
 % Plot GPFA latent state vs time
 %
-% seq       - data structure containing extracted trajectories
-% xspec     - field name of trajectories in 'seq' to be plotted 
-%             (e.g., 'xorth' or 'xsm')
-% binWidth  - spike bin width used when fitting model
+% GP.plot(plotDim)
+%
+% Inputs:
+%   GP             GPFA object
+%   plotDim        Defined dimensions to plot
+%
+% Optional Arguments:
+%   targSubset      Subset of targets to plot
+%   nPlotMax        Maximum number of trials to plot per condition
+%   condCode        Condition code (used to plot different conditions in different colors)
+%   Tmin            Minimum timestep to plot
+%   Tmax            Maximum timestep to plot
+%   colorMode       Mode to use to select plot colors
+%   alignMode       Mode used to align
+%   xspec           Type of latent to plot ('xsm': smoothed, non-orthornormalized)
+%   tStep           Time step for plotting (ms)
+%   plotAlign       Plot line for alignment point
+%   lineW           Width of trajectories
+%   lineWavg        Width of average trajectories
+%   color           Color place holder
+%   ColMat          Colormap structure place holder
+%   colIndMode      Method used to select colors based on provided condCode
+%   colInfo         Color Info
 %
 % Adapted from 'plotEachDimVsTime' by Byron Yu
 %
 % Author:   Alan D. Degenhart
-% Created:  2017.02.16
-% Updated:  <see SVN log>
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 nPlotMax  = length(GP); % Maximum number of trials to plot per condition
 condCode  = [];         % Condition code (used to plot different conditions in different colors)
@@ -23,10 +42,10 @@ tStep     = 500;        % Time step for plotting (ms)
 plotAlign = true;       % Plot line for alignment point
 lineW     = 0.5;        % Width of trajectories
 lineWavg  = 2;          % Width of average trajectories
-color     = [];
-ColMat    = [];
+color     = [];         % Color place holder
+ColMat    = [];         % Colormap structure place holder
 colIndMode = 'normal';  % Method used to select colors based on provided condition code
-colInfo     = [];
+colInfo     = [];       % Color Info
 
 assignopts(who, varargin);
 

@@ -1,16 +1,18 @@
 function [k,binTimes] = binData(K,dataType,binWidth,t0,window,tOffset)
 % binData           Bin kinematic data method for KinematicData class
 %
-% Inputs
+% Inputs:
 %   dataType        Type of kinematic data to bin (pos, vel, or acc)
 %   binWidth        Width of each time bin
 %   tOffset         Time offset to apply to data
 %   window          Window to bin data over
 %   
-% Outputs
+% Outputs:
 %   k               Binned kinematic data
+%   binTimes        Bin edges
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Author:   Alan D. Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Verify that 'dataType' is appropriate

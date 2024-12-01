@@ -5,6 +5,9 @@ function TD = applyProjection(TD,P,varargin)
 % the previous function <<applyDataHighProjection>>, so that we don't need 
 % to create a large G structure offline.
 %
+% Usage:
+%   [TD] = opt.applyProjection(TD,P)
+%
 % Inputs:
 %   TD      TrajectoryData data structure
 %   P       Projection matrix (nDim x 2)
@@ -12,18 +15,21 @@ function TD = applyProjection(TD,P,varargin)
 % Optional Inputs:
 %   o_pre   Offset vector (pre-transformation, applied to latents)
 %   o_post  Offset vector (post-transformation. applied to position)
-%   xSpec   Latent state to projection to non-orthonormalized (xsm) or 
+%   xSpec   Latent state for projection to non-orthonormalized (xsm) or 
 %           orthonormalized (xorth, default)
 %   savePos Saves the orthonormalized projection to the cursor position.
+%
+% Outputs:
+%   TD      TrajectoryData data structure with the projection applied
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 % Parse optional arguments
-o_pre = [];
-o_post = [];
-xSpec = 'xorth';
-savePos = 0;
+o_pre = [];     % Offset vector (pre-transformation, applied to latents
+o_post = [];    % Offset vector (post-transformation. applied to position)
+xSpec = 'xorth';% Latent State Space
+savePos = 0;    % Save the projection to the cursor position.
 
 assignopts(who,varargin);
 
@@ -44,7 +50,6 @@ for i = 1:length(TD)
     TD(i).GPFA.(xSpec) = P'*(X + repmat(o_pre,1,nSamp)) ...
         + repmat(o_post,1,nSamp);
     if savePos
-        TD(i).pos = TD(i).GPFA.(xSpec)';
         TD(i).brainKin.pos = TD(i).GPFA.(xSpec)';
     end
 end

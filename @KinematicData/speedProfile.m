@@ -1,10 +1,30 @@
 % speedProfile      Method to calculate and plot speed profile for
 % KinematicData class
+%
+% Usage:
+%   [s,t,F] = K.speedProfile
+%
+% Inputs:
+%   K             Kinematic Data
+%
+% Optional Arguments:
+%   useMoveOnset    Align to movement onset
+%
+% Outputs:
+%   s               Calculated speed
+%   t               time
+%   F               Figure that plots the speed profile
+%
+% Author:   Alan D. Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [s,t,F] = speedProfile(K,varargin)
 
 % Optional arguments
 useMoveOnset = true;
+
+assignopts(who,varargin);
 
 % Get number of samples for each trial
 nTrials = length(K);

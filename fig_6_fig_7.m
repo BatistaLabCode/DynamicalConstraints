@@ -40,7 +40,7 @@ function [Fhist,FintAng,Ftube,FintAngTube,F_EL] = fig_6_fig_7(dataLoc,varargin)
 % Load in the D structure and the data
 exampleSess = {'20190719'}; % The example session used in the paper (fig2).
 saveFig = 0;                % Determine whether or not to save the data,
-% default is to not save the data (0).
+                            %   default is to not save the data (0).
 savePathBase = [];          % Where to save the figures.
 C = util.defineTaskColormap('bc_rot');  % Colormap struct. Default bc_rot
 plotExamples = 0; % Plots the example sessions on the histograms
@@ -58,12 +58,12 @@ useExample = 1;              % Use the hardcode example trajectories
 assignopts(who,varargin);
 
 % Load the initial angle analysis data
-% AD_compare , ang_antFlow, ang_unCon, ang_flow, and AD_co
+% AD_compare, ang_unCon, ang_flow, and AD_co
 load(fullfile(dataLoc,'initialAng_tt_vs_uncon+con_Simplified.mat'))
 load(fullfile(dataLoc,'centerOut_AngleAnalysisData_Signed.mat'))
 
 % Load the location where the intermediate target data is saved.
-data_save_loc = fullfile(dataLoc,'ConstrainedPath\mat\int_targ_data');
+data_save_loc = fullfile(dataLoc,'ConstrainedPath','mat','int_targ_data');
 
 % Creates the histogram plots for figure 6 and figure 7
 % Create normIntAng variable
@@ -126,9 +126,9 @@ for n = 2:9
     tempP45(ref(n),:) = tmpPOff(3,:);
 end
 
-g = (tempP45-tempCO)./tempP45;
-g2 = (tempN45-tempCO)./tempN45;
-tempCO45 = .5*(g+g2);
+withFlowDif = (tempP45-tempCO)./tempP45;
+againstFlowDif = (tempN45-tempCO)./tempN45;
+tempCO45 = .5*(withFlowDif+againstFlowDif);
 
 % Create the histograms for no change, full change, unconstrained, and
 % constrained data. Include the mean and standard deviation in each plot,
@@ -228,11 +228,11 @@ for n = 1:length(exampleSess)
         IT.intermediate_target_num);
     Ftube.Name = figName;
     titleStr = {'6C) Unconstrained trials','7B) Largest Tube',...
-        '7B) Smallest Tube','7D) All Tubes (averages)'};
+        '7B) Smallest Tube','7C) All Tubes (averages)'};
     n_tube = length(IT.constrainedTubeRadius);
     tube_radius = IT.constrainedTubeRadius;
 
-    % 6A) Create figures for intermediate target - no tube
+    % 6C) Create figures for intermediate target - no tube
     plt.subplotSimple(nRow,nCol,1,'Ax',Ax1);
     TD(1).plot('ColMat',C,'plotTrajectories',0,'plotStartTarg',1,...
         'plotEndTarg',0,'plotTargNum',0)
@@ -241,7 +241,8 @@ for n = 1:length(exampleSess)
     TDallAvg = TD.average('avgMode', avgMode);
     TDallAvg.plot('color',[0 0 0],'lineWidth',3,'plotTargets',0,'endMarker','arrow');
 
-    % 7B) Iterate over presented tubes and plot successful trajectories
+    % 7B) Iterate over presented tubes and plot a selection of both 
+    % successful and fail trial trajectories.
     TDavg = cell(1, n_tube);
     n_avg = nan(1, n_tube);
     for i = 1:n_tube
@@ -281,7 +282,17 @@ for n = 1:length(exampleSess)
                 else
                     pos = 1:length(TD);
                 end
-                TD(pos).plot('color',[0 0 0],'plotTargets',0,'endMarker',[])
+                % Identify the successful trials
+                tTD = TD(pos);
+                sucMask = [tTD.successful];
+
+                % Plot the successful trials
+                tTD(sucMask==1).plot('color',[0 0 0],'plotTargets',0, ...
+                    'endMarker', [],'startMarker',[])
+                if sum(sucMask)<length(pos)
+                    tTD(sucMask==0).plot('color',[1 0 0],'plotTargets',0,...
+                        'endMarker', [],'startMarker',[],'lineStyle','-')
+                end
             else % Plot the smallest tube trajectories
                 if ~isempty(trialsPerCondition)
                     if useExample
@@ -426,6 +437,8 @@ TD = TD(ismember([TD.startPos]',startPos,'rows'));
 aTD = TD.average('avgMode','samp');
 
 F = figure; hold on
+rotTDplt(~mask).plot('plotTrajectories',0,'ColMat',C,'plotTargNum',0,...
+    'plotStartTarg',1,'plotEndTarg',0);
 rotTDplt(mask).plot('trajColorWeight',.5,'ColMat',C,'endMarker','arrow',...
     'lineWidth',4,'plotTargNum',0,'plotStartTarg',1,'plotEndTarg',0);
 aTD.plot('color',[.7 .7 .7],'plotTargNum',0,'endMarker','arrow','lineWidth',4)

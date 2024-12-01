@@ -46,7 +46,7 @@ plotDim = [1 2];            % Which dimensions are being plotting
 assignopts(who,varargin);
 
 % Determine the sessions with the correct data
-load(fullfile(dataLoc,'publicationQualitySessions.mat'));
+load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 dir_list = db.get_task_datasets(D, {'tt_int','tt_rot'});
 load(fullfile(dataLoc,'dPrime_workspace+neuralSpace_fig3.mat'))
 
@@ -55,13 +55,14 @@ maskSessEx = find(ismember({dir_list(:,1).dataset},exampleSess));
 
 % Create the 2D GPFA plots of the example session
 
-% Load the decoder
-[TD, ~, ~] = util.loadSessionData(dir_list(maskSessEx,1));
+% Load the data and decoders
+[TD, ~, resultInt] = util.loadSessionData(dir_list(maskSessEx,1));
 TD = TD.normalize([0 0 0]);
 TD = TD(ismember([TD.targPos]',unique([TD.startPos]','rows'),'rows'));
 [uniTarg,~,condition] = unique([TD.targPos]','rows');
 [~, Prot,resultRot] = util.loadSessionData(dir_list(maskSessEx,2));
 [~,~,TTrot] = orthogonalize(zeros(Prot.xDim,1),resultRot.estParams.C);
+%[~,~,TT] = orthogonalize(zeros(P.xDim,1),result.estParams.C);
 
 % Collect the optimization algorthim data
 aRotTD = util.predictDecodeState_GPFA(TD,Prot,'spikeCountSrc','decodeSpikeCounts',...
@@ -183,7 +184,7 @@ legend('IM trials-decoder_Int','IM trials-decoder_SM',...
 F.Name = 'workspace_dPrime_histograms';
 
 % Paired t-test for the 2D space
-[h2di,p2di] = ttest(dP_WS(:,1),dP_WS(:,4));
+[h2di,p2di] = ttest(dP_WS(:,1),dP_WS(:,2));
 
 % Save the figures
 if saveFig
