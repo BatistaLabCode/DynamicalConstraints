@@ -1,7 +1,9 @@
-function F = plotGridTaskTrajectories(TD,fName,varargin)
 % F = plotGridTaskTrajectories(TD,fName,varargin)
 % 
 % Analysis script for position decoder grid task
+%
+% Usage:
+%   F = util.plotGridTaskTrajectories(TD,fName)
 %
 % Inputs:
 %   TD      TrajectoryData object
@@ -25,6 +27,8 @@ function F = plotGridTaskTrajectories(TD,fName,varargin)
 % Author: Alan D. Degenhart and Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
+function F = plotGridTaskTrajectories(TD,fName,varargin)
 
 centerPos = [];
 plotTargets = 1;

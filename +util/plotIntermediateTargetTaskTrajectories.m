@@ -1,5 +1,9 @@
-function F = plotIntermediateTargetTaskTrajectories(TD,C,fName,varargin)
+% F = plotIntermediateTargetTaskTrajectories(TD,C,fName,varargin)
+% 
 % Plot cursor trajectories for intermediate target task
+%
+% Usage:
+%   F = util.plotIntermediateTargetTaskTrajectories(TD,C,fName)
 %
 % Inputs:
 %   TD      TrajectoryData object
@@ -26,6 +30,8 @@ function F = plotIntermediateTargetTaskTrajectories(TD,C,fName,varargin)
 % Author: Alan Degenhart and Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
+function F = plotIntermediateTargetTaskTrajectories(TD,C,fName,varargin)
 
 createFigure = true;
 plotIntTarg = false;

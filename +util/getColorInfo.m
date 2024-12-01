@@ -2,6 +2,9 @@
 %
 % [colInfo] = util.getColorInfo(C, startPos, endPos)
 %
+% Usage:
+%   util.getColorInfo(C, startPos, endPos)
+% 
 % Inputs:
 %   C           'ColMat' structure of position-to-color definitions
 %   startPos    Start target position
