@@ -1,4 +1,4 @@
-% getColormap       Get colormap for force control/brain control analysis
+% defineTaskColormap       Get colormap for brain control analysis
 %
 % This function returns a colormap providing target position, target label,
 % target code for both start and end target (TC), and two color maps. 
@@ -10,7 +10,8 @@
 % 
 % Inputs:
 %   task           Task Condition with distinct color schemes. Options
-%                       include: bc, bc_int, bc_rot, and centerOut.
+%                       include: bc, bc_int, bc_rot, bc_grid, bc_fine,
+%                       and centerOut.
 %
 % Optional Inputs:
 %   target_radius  The distance of the targets from the center point
@@ -193,7 +194,7 @@ switch task
         normalize_flag = true;
     case 'bc_grid'
         % Color map for the standard two-target conditional grid task, this
-        % sets all the colors the samne for the two target task for the
+        % sets all the colors the same for the two target task for the
         % rotated mapping.
         
         % Define all valid target positions and their corresponding labels
@@ -240,30 +241,6 @@ switch task
             220 30 80];     % dark blue
         
         normalize_flag = true;
-    case 'fc'
-        % One target pair (up/down) for the isometric force task
-        
-        targPos = [ ...
-            0 1 0; ...
-            0 -1 0];
-        
-        targLabel = { ...
-            'T1', ...
-            'T2'};
-        
-        startTC = [1, 2];
-        endTC = [2, 1];
-        
-        col_dark = [ ...
-            40 100 80; ...  % yellow-orange
-            220 100 80];    % dark blue;
-        
-        col_light = [ ...
-            40 30 80; ...   % yellow-orange
-            220 30 80];     % dark blue
-        
-        normalize_flag = true;
-        
     case 'centerOut'
         % 8-target center-out
         

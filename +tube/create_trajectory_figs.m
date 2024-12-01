@@ -4,22 +4,29 @@
 % Usage:
 %   tube.create_trajectory_figs(IT)
 %
-% This function iterates through the three stages of the constrained path
-% task (unconstrained, constrained, washout) and creates summary plots of 
+% This function iterates through the two stages of the constrained path
+% task (unconstrained and constrained) and creates summary plots of 
 % the behavioral trajectories in the tubes.
 %
-% Optional Inputs:
-%   plot_scale
-%   center_pos
-%   r_factor
-%   plotStates
-%   avgMode
-%   plotSegment
-%   C
-%   trialsPerCondition  Allow for subselection of trials
-%   setRandSeed         
+% Input:
+%   IT                  IntTargExp object
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Optional Inputs:
+%   plot_scale          Sets the plotting scale
+%   center_pos          Center of the workspace
+%   r_factor            Factor used for spatial averaging
+%   plotStates          Determine which task states to include  
+%   avgMode             Averaging method
+%   plotSegment         Determine whether to plot only portions of the tube
+%   C                   Define color map
+%   trialsPerCondition  Allow for subselection of trials
+%   setRandSeed         Fix the random number generator for a consistenet
+%                           permutation for trial subselection. 
+%
+% Output:
+%   fh          Figure handle
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [fh] = create_trajectory_figs(IT, varargin)
@@ -74,22 +81,5 @@ for j = 1:nBlocks
         'setRandSeed',setRandSeed);
 end
 
-% Create figures for intermediate target - no tube (washout)
-f_unconst_washout = [];
-if ~isempty(IT.unconstrainedWashoutBlockDir)
-    saveNameBase = IT.unconstrainedWashoutBlockDir(1:end-18);
-    f_unconst_washout = util.plotIntermediateTargetTaskTrajectories( ...
-        IT.TDunconstrainedWashout, C, saveNameBase, ...
-        'centerPos', center_pos, ...
-        'plotTubes', false, ...
-        'plotScale', plot_scale, ...
-        'avgMode', avgMode, ...
-        'r_factor', r_factor,...
-        'plotStates',plotStates,...
-        'plotSegment',plotSegment,...
-        'trialsPerCondition',trialsPerCondition,...
-        'setRandSeed',setRandSeed);
-end
-
 % Collect figure handles
-fh = [f_unconst, f_const, f_unconst_washout];
+fh = [f_unconst, f_const];

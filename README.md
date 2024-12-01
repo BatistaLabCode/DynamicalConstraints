@@ -20,11 +20,10 @@ Additionally, the repository is organized into several folders, each with a spec
 - +opt: Optimization code that identifies SepMax projections.
 - +flow: Code related to flow field analysis.
 - +db: Database code for organizing and subselecting data.
-- +behave: General behavior-related code.
 
 ## Requirements
 [List software or libraries required to run the code]
-MATLAB 2024a or 2024b
+MATLAB 2024a
 
 ## Installation
 Clone this repository:
