@@ -15,9 +15,10 @@ function [dataLoc, exSessDataLoc, saveFigLoc] = serverPath
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-dataLoc = 'E:\Erinn\EL_NatNeuro_2024_data';
+
+dataLoc = 'C:\Users\emg27\Dropbox\github\DynamicalConstraint\DynamicalConstraints_NatNeuro_2024_data';
 exSessDataLoc = fullfile(dataLoc,'Example Sessions');
-saveFigLoc = 'E:\Erinn\EL_NatNeuro_2024_Figures';
+saveFigLoc = 'C:\Users\emg27\OneDrive\Desktop\folderTemp';
 
 % Check if the dataLoc folder exists, if not give a warning and prompt for 
 % folder location

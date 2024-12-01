@@ -40,7 +40,7 @@ function TDavg = average(TD,varargin)
 % Optional arguments
 N = 100; % Number of data points to interpolate over.
 nDim = 2; % Currently only use 2D
-avgMode = 'samp';     % Method to use to perform averaging.
+avgMode = 'interp';     % Method to use to perform averaging.
 sampQuantCutoff = 0.5;  % Quantile to determine sample cutoff ('samp' average mode only)
 r_factor = 0.15;  % Scale factor used for spatial averaging (fraction of target-to-target distance)
 kinSource = {'brain'};

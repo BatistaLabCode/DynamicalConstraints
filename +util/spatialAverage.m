@@ -1,5 +1,7 @@
 % spatialAverage        Calculate spatial average of trajectories.
 %
+% x_avg = spatialAverage(xMat, varargin)
+% 
 % This function find the spatial average of the provided trajectories xMat.
 % In contrast to other averaging methods (which either time-warp or assume
 % that the trajectories are temporally aligned, this function assumes that
@@ -10,15 +12,25 @@
 % defined as the vector average of the velocity vectors within radiur r of
 % the current point.
 %
+% Usage:
+%   util.spatialAverage(xMat)
+%
 % Inputs
 %   xMat    Matrix of trials to average (trials x dimensions x time points)
 %   r       Radius used to identify nearby points
 %
+% Optional Inputs
+%   xMat    Matrix of trials to average (trials x dimensions x time points)
+%   max_iter            Max number of iterations
+%   r_cutoff_frac       Fraction for the stopping criteria
+%   r_factor            Factor of the target-to-target distance
+%
 % Outputs
 %   x_avg   Averaged trajectory (dimensions x time points)
 %
-% Created:  2019.08.01
 % Author:   Alan Degenhart
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function x_avg = spatialAverage(xMat, varargin)
 

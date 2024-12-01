@@ -1,5 +1,5 @@
-function [tPos,sz] = getTargetPosition(trial,stateName,targetName,varargin)
-% getTargetPosition         Get position for specified target
+% [tPos,sz] = getTargetPosition(trial,stateName,targetName,varargin)  Get 
+% position for specified target
 %
 % This function returns the target position of the specified target for the
 % indicated state.
@@ -19,6 +19,8 @@ function [tPos,sz] = getTargetPosition(trial,stateName,targetName,varargin)
 % Author:  Alan D. Degenhart
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
+function [tPos,sz] = getTargetPosition(trial,stateName,targetName,varargin)
 
 % Optional arguments
 cursorIndex = 1;

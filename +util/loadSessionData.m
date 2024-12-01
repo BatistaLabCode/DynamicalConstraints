@@ -1,5 +1,5 @@
-% util.loadSessionData  Loads the condition relevant data including decoder
-% and latent space parameters
+% [data,P,result] = loadSessionData(dir_list,varargin)  Loads the condition 
+% relevant data including decoder and latent space parameters
 %
 % Usage:
 %   util.loadSessionData(dir_list)

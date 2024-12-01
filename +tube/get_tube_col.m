@@ -1,7 +1,25 @@
 % tube.get_tube_col  Get colors for tube plotting.
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Usage:
+%   tube.get_tube_col(uni_start_pos, n_tube)
+% 
+% This will automatically create a gradient color map of nTube + 1 to match
+% the number of test tube boundaries + the unconstrained condition. 
+%
+% Input:
+%   uni_start_pos   The start point of the tubes
+%   n_tube          The number of tested tubes
+%
+% Optional Input:
+%   C           The default ColMat structure used to identify the scale
+%   colStart    Sets the desired brightest color
+%
+% Output:
+%   IT          IntTargExp object
+%
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
 
 function [tube_col] = get_tube_col(uni_start_pos, n_tube,varargin)
 C = [];         % Use the default ColMat structure to identify the scale

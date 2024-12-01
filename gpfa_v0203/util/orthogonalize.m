@@ -27,7 +27,7 @@ if xDim == 1
     TT    = sqrt(L' * L);
     Lorth = L / TT;
 else
-    [UU, DD, VV] = svd(L, 0);
+    [UU, DD, VV] = svd(L, 'econ');
     % TT is transform matrix
     TT = DD * VV';
     Lorth = UU;

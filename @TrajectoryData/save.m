@@ -22,7 +22,7 @@ successCode = nan(1,nTrials);
 trialNo = nan(1,nTrials);
 
 % Create data directory if necessary
-dataDir = [pathName '/' fileBase];
+dataDir = fullfile(pathName,fileBase);
 mkdir(dataDir)
 
 cmd_prog = util.commandline_progress([], 0, nTrials, ...
@@ -38,7 +38,7 @@ for i = 1:nTrials
     % Set filename for trial
     fName = sprintf('Trl_%0.4d.mat',trialNo(i));
     tempTrial = TD(i);
-    save([dataDir '/' fName],'tempTrial')
+    save(fullfile(dataDir,fName),'tempTrial')
 end
 
 % Save trial info structure
@@ -49,4 +49,4 @@ trialInfo.nTrials = nTrials;
 trialInfo.trialNo = trialNo;
 trialInfo.successCode = successCode;
 
-save([dataDir '/' fileBase '_trialInfo.mat'],'trialInfo')
+save(fullfile(dataDir,[fileBase '_trialInfo.mat']),'trialInfo')

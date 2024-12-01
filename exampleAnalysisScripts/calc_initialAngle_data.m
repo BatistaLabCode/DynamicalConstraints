@@ -38,7 +38,7 @@ dir_list = db.get_task_datasets(D, {'inttarg_rot_constr_slow'});
 data_save_loc = fullfile(dataLoc,'ConstrainedPath','mat','int_targ_data');
 valid_files = util.findDirContents(data_save_loc, '_int_targ.mat');
 
-for n = 1:length(valid_files)%length(session)
+for n = 1:length(valid_files)
     IT = load(fullfile(data_save_loc, valid_files{n}));
     IT = IT.IT;
     tD = D(ismember({D.dataset},IT.date)); % Hardcoded since the naming

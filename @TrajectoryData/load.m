@@ -14,10 +14,10 @@ fNames = {D.name};
 nFiles = length(D);
 
 % Load trial info data
-fileInd = cellfun(@strfind,fNames,repmat({'_trialInfo.mat'},1,nFiles), ...
+fileInd = cellfun(@strfind,fNames,repmat({'trialInfo.mat'},1,nFiles), ...
     'UniformOutput',false);
 fileInd = ~cellfun(@isempty,fileInd);
-trialInfo = load([directoryName '/' fNames{fileInd}]);
+trialInfo = load(fullfile(directoryName,fNames{fileInd}));
 trialInfo = trialInfo.trialInfo;
 
 % Initialize trial structure
@@ -30,7 +30,7 @@ fprintf('Loading %d trial(s) into TrajectoryData object ... ', ...
 % Load trial data.
 for i = 1:trialInfo.nTrials
     trialName = sprintf('Trl_%0.4d.mat',trialInfo.trialNo(i));
-    tempTrial = load([directoryName '/' trialName]);
+    tempTrial = load(fullfile(directoryName,trialName));
     TD(i) = tempTrial.tempTrial;
 end
 

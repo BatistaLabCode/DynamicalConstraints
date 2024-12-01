@@ -3,7 +3,7 @@
 % [H] = flow.plot_flow_field(FF)
 %
 % Inputs:
-%   FF      Flow field results structure (from el.flow.calc_flow_field)
+%   FF      Flow field results structure (from flow.calc_flow_field)
 %
 % Optional Inputs:
 %   C               Color match for standard plotting   
@@ -155,7 +155,7 @@ plot(grid_hist_edges(1:end-1), grid_hist(2,:), ...
     'color', col_info_all{2}{2});
 plot(grid_hist_edges(1:end-1), sum(grid_hist, 1), 'k', ...
     'LineWidth', 2)
-set(gca, 'YLim', [0 75], 'XLim', [1 grid_hist_edges(end-1)], ...
+set(gca, 'XLim', [1 grid_hist_edges(end-1)], ...
     'TickDir', 'out')
 xlabel('Number of points per voxel')
 ylabel('Counts (# voxels)')

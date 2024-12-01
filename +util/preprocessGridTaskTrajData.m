@@ -11,7 +11,7 @@ function [TD,targInfo] = preprocessGridTaskTrajData(TD,varargin)
 %   TD             TrajectoryData object
 %
 % Optional Input:
-%   centerPos      Location of the center ofthe workspace.
+%   centerPos      Location of the center of the workspace.
 %
 % Output:
 %   TD             Modified TrajectoryData object

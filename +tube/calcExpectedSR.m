@@ -9,15 +9,16 @@
 %   TU      Base tube object with path
 %   r       Array of tube radii to assess
 %
-% Usage:
-%   TU = TU.calcExpectedSR(TD,TU,r,varargin)
-%
 % Optional Inputs:
 %   startPos    Start target position for the constrained path task
 %   kinSource   Determine which kinSource to calculate the success rate
 %   rmFail      Remove failed trials
 %   plotSegment Determine we are plotting a segment of the tube around
 %                      the path or the entire tube around the path
+%
+% Output:
+%   sr          Success Rate for each tube radius
+%   sr_all      Success state for all trials for each radius
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com

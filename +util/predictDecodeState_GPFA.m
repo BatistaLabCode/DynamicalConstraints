@@ -3,7 +3,7 @@
 % predictDecodeState_GPFA       Run GPFA decoder on TrajectoryData object
 %
 % Usage:
-%   [TD] = predictDecodeState_GPFA(TD,P)
+%   [TD] = util.predictDecodeState_GPFA(TD,P)
 %
 % Inputs:
 %   TD          TrajectoryData
