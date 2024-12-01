@@ -156,8 +156,10 @@ for i = 1:n_start_pos
     end
 end
 
-% Determine the distribution of voxels by point count
+% Determine the distribution of voxels by point count.
 [~,grid_hist_edges] = histcounts(reshape(grid_cts,1,[]));
+grid_hist_edges = round(grid_hist_edges);
+grid_hist_edges = grid_hist_edges(grid_hist_edges>0);
 grid_hist = nan(n_start_pos, length(grid_hist_edges) - 1);
 for i = 1:n_start_pos
     % Determine counts per bin
