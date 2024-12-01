@@ -19,7 +19,8 @@
 
 function [AD_co] = batch_initial_angle_centerOutControl(varargin)
 %% Calculated the initial angles for the gradial training/center out task.
-data_loc = [];
+dataLoc = [];
+rawDataLoc = [];
 centerPos = [0 0 0];
 save_file = 0;
 save_path = [];
@@ -28,12 +29,16 @@ save_path = [];
 assignopts(who,varargin);
 
 % Define the data location
-if isempty(data_loc)
-    data_loc = serverPath();
+if isempty(dataLoc) & isempty(rawDataLoc)
+    [dataLoc, rawDataLoc] = serverPath();
+elseif isempty(dataLoc)
+    [dataLoc] = serverPath();
+elseif isempty(rawDataLoc)
+    [rawDataLoc] = serverPath();    
 end
 
 % Determine the valid datasets
-int_targ_loc = fullfile(data_loc,'ConstrainedPath\mat\int_targ_data');
+int_targ_loc = fullfile(dataLoc,'ConstrainedPath','mat','int_targ_data');
 valid_files = util.findDirContents(int_targ_loc, '_int_targ.mat');
 
 % Create the AD file based on the number of sessions
@@ -41,7 +46,7 @@ AD_co = repmat(struct('subject',[],'date',[],'targAng',[],...
     'avgAng_ZIA',[],'avgTD',[],'indAng_ZIA',[],'baseAng',[],...
     'intTrajVec',[],'OpposeTrajVec',[],'zeroTrajVec',[]),8,length(valid_files));
 
-%% Iterate through the sessions
+% Iterate through the sessions
 for k = 1:size(valid_files,2)
 
     % Load the IT data
@@ -53,7 +58,7 @@ for k = 1:size(valid_files,2)
     mon = IT.date(5:6);
 
     % Find and load the center out data.
-    pathName = fullfile(dataLoc,IT.subject,yr,mon,IT.date,'translated','trajectoryData');
+    pathName = fullfile(rawDataLoc,IT.subject,yr,mon,IT.date,'translated','trajectoryData');
     dirInfo = dir(pathName);
     fileIdx = find(contains({dirInfo.name},'centerOut'));
 
@@ -66,7 +71,7 @@ for k = 1:size(valid_files,2)
     end
     TD  = util.preprocessGridTaskTrajData(TD,'centerPos',centerPos);
 
-    %% Identify the target directions
+    % Identify the target directions
     % Calculate the average TD
     aTD = TD.average('avgMode','samp');
     targPos_avg = [aTD.targPos];
