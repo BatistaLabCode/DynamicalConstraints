@@ -8,6 +8,10 @@
 % This will automatically fill in the intermediate target experiment
 % information based on the database structure. 
 %
+% Input:
+%   subject     Subject ID
+%   dataset     Experiment ID
+%
 % Optional Input:
 %   D           Structure with all the valid experimental data. Save as
 %                   filename <<publicationQualitySessions.mat>>
@@ -17,7 +21,7 @@
 %   IT          IntTargExp object
 %   dir_tD      Directory of the data
 %
-% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 function [IT,dir_tD] = get_dataset_info(subject,dataset,varargin)
@@ -33,17 +37,17 @@ IT.date = dataset;
 
 % Load the D structure if not defined.
 if isempty(D)
-    D = el.db.load_info;
+    dataLoc = serverPath();
+    load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
 end
 
 % Mask the data for the relevant sessions.
-mask = ismember([{D.subject}],subject) & ismember([{D.dataset}],dataset);
+mask = ismember({D.subject},subject) & ismember({D.dataset},dataset);
 tD = D(mask);
 dir_tD = db.get_dataset_dirs(tD);
-task = [{tD.task}];
+task = {tD.task};
 
 % Iterate through the task and conditions
-n_int = 0;
 n_rot = 0;
 for n = 1:size(task,2)
     
@@ -58,28 +62,10 @@ for n = 1:size(task,2)
         
         % Load the information into the structure
         switch task{n}
-            case {'inttarg_rot_unconstr',...
-                    'perturb_hc_unconstr',...
-                    'perturb_bc_unconstr'}
+            case {'inttarg_rot_unconstr'}
                 IT.unconstrainedBlockDir = tempFile;
-            case {'inttarg_rot_constr_sing',...
-                    'perturb_hc_constr_sing',...
-                    'perturb_bc_constr_sing'}
-            case {'inttarg_rot_constr_slow',...
-                    'inttarg_rot_constr_fast',...
-                    'tt_int_constr_slow',...
-                    'perturb_hc_constr_slow',...
-                    'perturb_bc_constr_slow'}
+            case {'inttarg_rot_constr_slow'}
                 IT.constrainedBlockDir{m} = tempFile;
-            case {'inttarg_rot_unconstr_wo',...
-                    'perturb_hc_unconstr_wo',...
-                    'perturb_bc_unconstr_wo'}
-                IT.unconstrainedWashoutBlockDir = tempFile;
-            case {'tt_int'}
-              if inclTT
-                  n_int = n_int + 1;
-                  IT.ttIntBlockDir{n_int} = tempFile;
-              end
             case {'tt_rot',...
                     'tt_rot_comp',...
                     'tt_rot_inv'}
