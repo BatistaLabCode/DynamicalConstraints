@@ -1,8 +1,22 @@
 % util.commandline_progress  Command-line progress bar
 %
 % Usage:
-%   util.command_progress(iter, num_iter, msg)
+%   util.command_progress(cmd_prog, iter, num_iter, msg)
 %
+% Prints the progress of processing the iterations an analysis function.
+% 
+% Inputs:
+%   cmd_prog        Structure for the progress bar.       
+%   iter            Current iteration
+%   num_iter        Total number of iterations
+%   msg             Display message at the start of the progress bar.
+% 
+% Outputs:
+%   cmd_prog        Structure for the progress bar.
+%
+% Author:   Alan D. Degenhart
+% Copyright (C) by Alan Degenhart and Erinn Grigsby
+% Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
 
 function [cmd_prog] = commandline_progress(cmd_prog, iter, num_iter, msg)

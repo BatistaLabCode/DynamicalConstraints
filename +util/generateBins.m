@@ -1,7 +1,9 @@
-function [binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType)
 %[binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType) 
 % generateBins          Create bin arrays for binning data
 %
+% Usage:
+%   util.generateBins(binWidth,t0,window,binType)
+% 
 % Inputs
 %   binWidth            Width of each time bin
 %   t0                  Time point to generate bins relative to
@@ -24,6 +26,8 @@ function [binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
+
+function [binTimes,binOnset,binOffset] = generateBins(binWidth,t0,window,binType)
 
 if nargin < 4
     binType = 'causal';
