@@ -3,24 +3,24 @@
 %
 % [AD,F] = calc_inital_angle_diff(IT)
 %
-% This function returns the valid items in the directory specified by
-% BASEDIR with the name specified by ITEMNAME.
-%
 % Usage:
 %   tube.calc_inital_angle_diff(IT)
 % 
 % Inputs:
-%   baseDir         Base directory to identified all dependent content
-%   itemName        File identifier to subselect for specific file content.              
+%   IT              IntTargExp object
 %
 % Optional Inputs:
-%   baseDir         Base directory to identified all dependent content
-%   itemName        File identifier to subselect for specific file content.
+%   successOnly     Only use successful trials
+%   F = [];         Figure handle
+%   plotFig = 1;    Plot the angle difference
+%   useRot = 1;     Use the SM trajectory as a comparison
+%   decoderVisual   Determine the visual decoder
 % 
 % Outputs:
-%   dList           List of files with valid elements.
+%   AD              Angle difference structure.
+%   F               Figure handle
 %
-% Author:   Alan D. Degenhart
+% Author:   Erinn Grigsby
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 function [AD,F] = calc_inital_angle_diff(IT,varargin)
@@ -29,6 +29,7 @@ F = [];
 plotFig = 1;
 useRot = 1;
 decoderVisual = 'rot';
+
 extraOpts = assignopts(who, varargin);
 
 % Set up the structure
