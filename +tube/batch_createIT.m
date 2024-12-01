@@ -11,25 +11,35 @@
 % Optional Inputs:
 %   data_save_loc  Location to save flow field batch data.
 %   D              Structure with all the valid experimental data. Save as
-%                   filename <<publicationQualitySessions.mat>>
+%                   filename <<exampleDatasetCatalog.mat>>
 %   task_list      Tasks to calculate the flow field for.
 %
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-function invalid_list = batch_createIT(varargin)
-save_path = [];
+function [invalid_list,IT] = batch_createIT(varargin)
+dataLoc = [];
 D = [];
+plotFig = 0;
+save_file = 0;
+save_path = [];
 task = 'rot_constr';
 
-optArg = assignopts(who,varargin);
+% Parse optional agruments
+assignopts(who,varargin);
 
-%if isempty(save_path)
-%    save_path = uigetdir;
-%end
+% Define the data location
+if isempty(dataLoc)
+    dataLoc = serverPath();
+end
 
+% Load the relevant data
 if isempty(D)
-    load('C:\Users\emg27\Dropbox\github\DynamicalConstraint\DynamicalConstraints_NatNeuro_2024_data\publicationQualitySessions.mat')
+    load(fullfile(dataLoc,'exampleDatasetCatalog.mat'));
+end
+
+if isempty(save_path)
+   save_path = uigetdir('','Where would to like to save the IT files?');
 end
 
 % Get all the tube sessions
