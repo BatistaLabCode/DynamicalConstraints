@@ -16,6 +16,11 @@
 
 clear, close all
 
+% Add the paper code to the path
+pathName = pwd;
+addpath(genpath(pathName))
+
+% Set the example session and if you want to save the data
 exampleSess = {'20190719'}; % The example session that we plot the neural
                             %    space trajectories. (From Monkey E)
 calcWeights = 1;            % Determine the scaling weights for each 
