@@ -12,6 +12,10 @@
 
 clear, close all % Clear and set the workspace
 
+% Add the paper code to the path
+pathName = pwd;
+addpath(genpath(pathName))
+
 % Set the example session and if you want to save the data
 exampleSess = {'20190719'};
 plotFig = 1;

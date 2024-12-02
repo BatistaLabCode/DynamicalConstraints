@@ -17,6 +17,10 @@
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 clear,close all
 
+% Add the paper code to the path
+pathName = pwd;
+addpath(genpath(pathName))
+
 % Set the example session and if you want to save the data
 exampleSess = {'20190719'};
 centerPos = [0 0 0];
