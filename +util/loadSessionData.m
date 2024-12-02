@@ -42,9 +42,6 @@ switch dataType
             [data,~] = util.preprocessGridTaskTrajData(data,'centerPos',centerPos);
         end
         decoderName = data(1).decoderName;
-    case('trial')
-        data = Trial().load(dir_list.trial{idx});
-        decoderName = data(1).Data.decoder.parameters.name;
     case('data')
         data = load(dir_list.translated{idx});
         data = data.Data;
