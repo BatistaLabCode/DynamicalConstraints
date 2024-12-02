@@ -15,8 +15,12 @@ function [dataLoc, exSessDataLoc, saveFigLoc] = serverPath
 % Copyright (C) by Erinn Grigsby and Alan Degenhart
 % Emails: erinn.grigsby@gmail.com or alan.degenhart@gmail.com
 
-
-dataLoc = 'C:\Users\emg27\Dropbox\github\DynamicalConstraint\DynamicalConstraints_NatNeuro_2024_data';
+% Default values: Assumes that the data folder in still maintained in the
+% github folder and that the folder with the processed session data is
+% stored in the <<Example Sessions>> folder in
+% <<DynamicalConstraints_NatNeuro_2024_data>> folder.
+base = pwd;
+dataLoc = fullfile(base,'DynamicalConstraints_NatNeuro_2024_data');
 exSessDataLoc = fullfile(dataLoc,'Example Sessions');
 saveFigLoc = 'C:\Users\emg27\OneDrive\Desktop\folderTemp';
 
