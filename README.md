@@ -27,8 +27,8 @@ This repository contains the data and code used for the analysis and figure gene
 
 > **Note**: 
 > - We provide a slightly modified version of DataHigh within the code pack, including all its external dependencies. Please keep in mind if you already have DataHigh installed on your computer.
-> - The `dataHigh` function `orthogonalize` relies on MATLAB's 'svd' function, which may produce slight visual discrepancies in Figure 3 panels or SepMax projections, depending on MATLAB version and machine. See MATLAB’s [SVD documentation](https://www.mathworks.com/help/releases/R2024b/matlab/ref/double.svd.html?overload=svd+false#bu2_0hq-3) for details. 
-> - This 'svd' function variability will not cause any issue with identifying the Separation Maximizing projection from scratch or new data. It simply means that the orthogonal vector may have sign flips that change matrix **M** weights, but not the relationship of the trajectories plotted together.
+> - The `dataHigh` function `orthogonalize` relies on MATLAB's `svd` function, which may produce slight visual discrepancies in Figure 3 panels or SepMax projections, depending on MATLAB version and machine. See MATLAB’s [SVD documentation](https://www.mathworks.com/help/releases/R2024b/matlab/ref/double.svd.html?overload=svd+false#bu2_0hq-3) for details. 
+> - This `svd` function variability will not cause any issue with identifying the Separation Maximizing projection from scratch or new data. It simply means that the orthogonal vector may have sign flips that change matrix **M** weights, but not the relationship of the trajectories plotted together.
 
 ---
 
@@ -44,12 +44,12 @@ git clone https://github.com/BatistaLabCode/DynamicalConstraints
 
 To run the main analysis, you will primarily interact with the following functions:
 
-- **'DynamicalConstraints\serverPath.m'**: location of data folder on the computer. This is a function that will attempt to identify the location of the data information, the example session information, and where the user wants to save the material. If the code is unable to find either the automated path or the user input path, then the code will prompt the user to identify the correct folders using the file GUI.
+- **`DynamicalConstraints\serverPath.m`**: location of data folder on the computer. This is a function that will attempt to identify the location of the data information, the example session information, and where the user wants to save the material. If the code is unable to find either the automated path or the user input path, then the code will prompt the user to identify the correct folders using the file GUI.
 
-- **'DynamicalConstraints\createAllFigures.m'**: produces all the main paper figures and their related statistical tests. Note that the serverPath and createAllFigures will both the GitHub path and all subfolders to MATLAB, but not all provided codes do this.
+- **`DynamicalConstraints\createAllFigures.m`**: produces all the main paper figures and their related statistical tests. Note that the serverPath and createAllFigures will both the GitHub path and all subfolders to MATLAB, but not all provided codes do this.
 
 > **Note**:   
-> - There are slight discrepancies in the trajectory arrows shown in the paper and the arrows plotted using 'createAllFigures.m' script. This is because the trajectory arrows shown in the main figures of the paper were added using Adobe Illustrator, which calculates the direction of the arrowhead differently than the Matlab code.
+> - There are slight discrepancies in the trajectory arrows shown in the paper and the arrows plotted using `createAllFigures.m` script. This is because the trajectory arrows shown in the main figures of the paper were added using Adobe Illustrator, which calculates the direction of the arrowhead differently than the Matlab code.
 
 ### **Step 1: Configure Paths**  
 Edit `serverPath.m` to update or confirm the following:
@@ -78,7 +78,7 @@ Run `serverPath.m` to ensure paths are correctly configured. The code will promp
   ```
   
 > **Note**: 
-> - It is possible to also run the individual figure codes separately, e.g. 'fig_2_two_target(dataLoc)', or adjust optional inputs/variables in the functions.  
+> - It is possible to also run the individual figure codes separately, e.g. `fig_2_two_target(dataLoc)`, or adjust optional inputs/variables in the functions.  
  ---
 
 ## **File Organization**
@@ -95,7 +95,7 @@ Key files and folders:
 
 Subfolders:
 - **`Example Sessions\`**: Folder contains the processed data, latent space parameters, and BCI decoders for two example sessions (`monkeyE20181004` and `monkeyE20190719`). The neural and behavior data is saved as a TrajectoryData object (lab-custom design object included in the code pact) and everything else is saved as structures. Each unique session task or parameter change is save as a unique folder (ie monkeyE20190719_04_condGridTask_01_SI_trajectoryData or monkeyE20190719_13_twoTargetABBA_intTarg_startTarg_T1_tube_04_SI_trajectoryData). Example session `monkeyE20190719` is used for all example analysis scripts (*see below*).  
-- **`flowAnalysis\mat\`**: FlowResult structures for each valid experiment with each file using the following naming structure: [animalID][session date]_[MoveInt two target folder number] _[SepMax two target folder number]_FlowResults. See the code 'flow.main_analysis' for a greater description of the structure.
+- **`flowAnalysis\mat\`**: FlowResult structures for each valid experiment with each file using the following naming structure: [animalID][session date]_[MoveInt two target folder number] _[SepMax two target folder number]_FlowResults. See the code `flow.main_analysis` for a greater description of the structure.
 - **`ConstrainedPath\mat\int_targ_data\`**: Intermediate target (intTarg) data for `monkeyE20190719`. This data structure is used in Figures 6 and 7 and stores all the data relevant to the IT task analysis and the instructed path task analysis.
 
 ---
@@ -136,15 +136,15 @@ In the wrapper script, there is the option to save the figures and even subselec
 The repository is organized into several folders, each with a specific purpose or anaylsis focus. Every function has a header with a detailed description of its use, required inputs, optional inputs, and outputs.
 
 | Folder          | Description                                                                                       |
-|------------------|---------------------------------------------------------------------------------------------------|
+|----------------------|-------------------------------------------------------------------------------------------------|
 | `@`             | Custom MATLAB classes built specifically for projects in the Batista lab for object-specific analysis. The advantage of these classes is that they enable users to create object specific analysis functions (An example of this is the TubeOject.plot and TrajectoryData.plot are different functions that will produce different results). While they could be replaced with structures in the future, they are necessary for several minor codes.|
-|	- '@TrajectoryData'		| Object with data for an individual trial. These are often combined to create structures of whole experiment conditions.|
-|  	- '@KinematicData'		| Object for the kinematic source data that control the computer cursor. The default for this experiment is BCI control unless stated explicitly. |
-| 	- '@VRCursorData'		| Object with transformation information to convert kinematic data into the visual workspace. |
-|  	- '@GPFAData'		| Object of the GPFA and neural space data. This is the data that is used to calculate the *MoveInt* and the *SepMax* workspace.|
-|  	- '@EL_ExperimentInfo'	| Object stores the experiment session information and specifically the information related to the decoder for the *SepMax* information.
-|  	- '@IntTargExp'		| Object the information and data relevant to the intermediate target and initial angle analysis.
-|  	- '@TubeObject'	| Object related to the instructed path and its display on the screen.
+| `@TrajectoryData`		| Object with data for an individual trial. These are often combined to create structures of whole experiment conditions.|
+| `@KinematicData`		| Object for the kinematic source data that control the computer cursor. The default for this experiment is BCI control unless stated explicitly. |
+| `@VRCursorData`		| Object with transformation information to convert kinematic data into the visual workspace. |
+| `@GPFAData`		| Object of the GPFA and neural space data. This is the data that is used to calculate the *MoveInt* and the *SepMax* workspace.|
+| `@EL_ExperimentInfo`	| Object stores the experiment session information and specifically the information related to the decoder for the *SepMax* information.
+| `@IntTargExp`		| Object the information and data relevant to the intermediate target and initial angle analysis.
+| `@TubeObject`	| Object related to the instructed path and its display on the screen.
 | `+db`           | Database management and data sub-selection scripts.                                               |
 | `+flow`         | Flow field analysis scripts and functions.                                                                      |
 | `+opt`          | Code for identifying and optimizing the SepMax projection.                                                          |
