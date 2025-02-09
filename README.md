@@ -1,5 +1,5 @@
 
-# **Dynamical Constraints Code Package**
+# Dynamical Constraints Code Package
 This codepack accompanies the paper:
 
 "Dynamical constraints on neural population activity"
@@ -10,23 +10,23 @@ by E. R. Oby†, A. D. Degenhart†, E. M. Grigsby†, A. N. Motiwala, N. T. McC
 
 https://www.nature.com/articles/s41593-024-01845-7
 
-## **Overview**
-This repository contains the data and code used for the analysis and figure generation in our recently published paper, [Dynamical constraints on neural population activity]. 
+## Overview
+This repository contains the data and code used for the analysis and figure generation in the paper. 
 
-1. The **data** provided will include:
+1. The **data** provided includes:
 	-Processed trial data from example session (E20190719)
 	-Processed trial data of the two-target task from a single experiment session(E20181004)
 	-Flow field data from all valid sessions
 	-Summary source data for all statistical analysis in the paper. 
 		
-2. The **code** provided will include:
+2. The **code** provided includes:
 	- All the standard functions we used to process, analyze, and plot the data (*See folder organization description of function types*)
 	- Simplified scripts that will reproduce the summary data values and information for the example session, E20190719.
 	- Scripts and functions that produce all the plots found in the main figures.
 
 ---
 
-## **Requirements**
+## Requirements
 - MATLAB 2024a
 - Toolboxes:
   - Signal Processing Toolbox
@@ -35,12 +35,12 @@ This repository contains the data and code used for the analysis and figure gene
 
 > **Note**: 
 > - We provide a slightly modified version of DataHigh within the code pack, including all its external dependencies. Please keep in mind if you already have DataHigh installed on your computer.
-> - The `dataHigh` function `orthogonalize` relies on MATLAB's `svd` function, which may produce slight visual discrepancies in Figure 3 panels or SepMax projections, depending on MATLAB version and machine. See MATLAB’s [SVD documentation](https://www.mathworks.com/help/releases/R2024b/matlab/ref/double.svd.html?overload=svd+false#bu2_0hq-3) for details. 
-> - This `svd` function variability will not cause any issue with identifying the Separation Maximizing projection from scratch or new data. It simply means that the orthogonal vector may have sign flips that change matrix **M** weights, but not the relationship of the trajectories plotted together.
+> - The `dataHigh` function `orthogonalize` relies on MATLAB's `svd` function, which may produce slight visual discrepancies in Figure 3 panels or SepMax projections depending on MATLAB version and machine. See MATLAB’s [SVD documentation](https://www.mathworks.com/help/releases/R2024b/matlab/ref/double.svd.html?overload=svd+false#bu2_0hq-3) for details. 
+> - This `svd` function variability will not cause any issue with identifying the Separation Maximizing projection from scratch or new data. It simply means that the orthogonal vector may have sign flips that change matrix *M* weights, but not the relationship of the trajectories plotted together.
 
 ---
 
-## **Installation**
+## Installation
 Clone the repository:  
 ```bash
 git clone https://github.com/BatistaLabCode/DynamicalConstraints
@@ -48,7 +48,7 @@ git clone https://github.com/BatistaLabCode/DynamicalConstraints
 
 ---
 
-## **Getting Started**
+## Getting Started
 
 To run the main analysis, you will primarily interact with the following functions:
 
@@ -59,7 +59,7 @@ To run the main analysis, you will primarily interact with the following functio
 > **Note**:   
 > - There are slight discrepancies in the trajectory arrows shown in the paper and the arrows plotted using `createAllFigures.m` script. This is because the trajectory arrows shown in the main figures of the paper were added using Adobe Illustrator, which calculates the direction of the arrowhead differently than the Matlab code.
 
-### **Step 1: Configure Paths**  
+### Step 1: Configure Paths
 Edit `serverPath.m` to update or confirm the following:
 - **`dataLoc`**: Data folder location.
 - **`exSessDataLoc`**: Example session folder.
@@ -67,15 +67,15 @@ Edit `serverPath.m` to update or confirm the following:
 
 *The default settings of this code assume that the data folder is still stored in the same location as the main GitHub folder.*
 
-### **Step 2: Verify `serverPath.m`**  
+### Step 2: Verify `serverPath.m` 
 Run `serverPath.m` to ensure paths are correctly configured. The code will prompt for updates if paths are invalid.
 
-### **Step 3: Run Scripts**  
+### Step 3: Run Scripts 
 - To generate all figures:  
   ```matlab
   createAllFigures
   ```
-- To test single example analysis scripts:  
+- To run single example analysis scripts:  
   ```matlab
   exampleAnalysisScripts\identify_separationMaximizingProjection
   exampleAnalysisScripts\dPrime_calc
@@ -89,9 +89,9 @@ Run `serverPath.m` to ensure paths are correctly configured. The code will promp
 > - It is possible to also run the individual figure codes separately, e.g. `fig_2_two_target(dataLoc)`, or adjust optional inputs/variables in the functions.  
  ---
 
-## **File Organization**
+## File Organization
 
-### **1. Data**:  
+### 1. Data:  
 Located in: `DynamicalConstraints\DynamicalConstraints_NatNeuro_2024_data\`  
 Key files and folders:
 - **`exampleDatasetCatalog`**: Structure with details of the provided example sessions.
@@ -108,7 +108,7 @@ Subfolders:
 
 ---
 
-### **2. Example Analysis Scripts**:  
+### 2. Example Analysis Scripts:  
 There are six example analysis scripts that we provided. These a simplified versions of many of the "batch" analysis scripts provided. They are also base code in case the user would like to implement any of our methods on their data.
 Located in: `DynamicalConstraints\exampleAnalysisScripts\`  
 Scripts provided:
@@ -121,7 +121,7 @@ Scripts provided:
 
 ---
 
-### **3. Manuscript Figures**: 
+### 3. Manuscript Figures: 
 Six functions will produce the main figures of the paper.
 Located in: `DynamicalConstraints\`  
 Functions to recreate figures:
@@ -140,7 +140,7 @@ In the wrapper script, there is the option to save the figures and even subselec
 
 ---
 
-## **Folder Structure**
+## Folder Structure
 The repository is organized into several folders, each with a specific purpose or anaylsis focus. Every function has a header with a detailed description of its use, required inputs, optional inputs, and outputs.
 
 | Folder          | Description                                                                                       |
@@ -165,14 +165,14 @@ The repository is organized into several folders, each with a specific purpose o
 
 ---
 
-## **Authorship**
+## Authorship
 This code package was developed by:  
 - **Erinn Grigsby** ([erinn.grigsby@gmail.com](mailto:erinn.grigsby@gmail.com))  
 - **Alan Degenhart** ([alan.degenhart@gmail.com](mailto:alan.degenhart@gmail.com))  
 
 ---
 
-## **Acknowledgments**
+## Acknowledgments
 We thank the [Batista Lab](https://smile.pitt.edu) for their invaluable support and collaboration
 
 ---
