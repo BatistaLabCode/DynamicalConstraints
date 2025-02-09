@@ -2,10 +2,11 @@
 # **Dynamical Constraints Code Package**
 This codepack accompanies the paper:
 
-“Dynamical constraints on neural population activity”
+"Dynamical constraints on neural population activity"
+
 by E. R. Oby†, A. D. Degenhart†, E. M. Grigsby†, A. N. Motiwala, N. T. McClain, P. J. Marino, B. M. Yu*, A. P. Batista*.
 *Nat Neurosci*, vol. 28, 2025, pp. 383-393.
-(†: indicates joint contributions, *: indicates joint supervision)
+<br>(†: indicates joint contributions, *: indicates joint supervision)
 
 https://www.nature.com/articles/s41593-024-01845-7
 
