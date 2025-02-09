@@ -14,15 +14,17 @@ https://www.nature.com/articles/s41593-024-01845-7
 This repository contains the data and code used for the analysis and figure generation in the paper. 
 
 1. The **data** provided includes:
-	-Processed trial data from example session (E20190719)
-	-Processed trial data of the two-target task from a single experiment session(E20181004)
-	-Flow field data from all valid sessions
-	-Summary source data for all statistical analysis in the paper. 
+
+- Processed trial data from example session (E20190719)
+- Processed trial data of the two-target task from a single experiment session(E20181004)
+- Flow field data from all valid sessions
+- Summary source data for all statistical analysis in the paper. 
 		
 2. The **code** provided includes:
-	- All the standard functions we used to process, analyze, and plot the data (*See folder organization description of function types*)
-	- Simplified scripts that will reproduce the summary data values and information for the example session, E20190719.
-	- Scripts and functions that produce all the plots found in the main figures.
+
+- All the standard functions we used to process, analyze, and plot the data (*See folder organization description of function types*)
+- Simplified scripts that will reproduce the summary data values and information for the example session, E20190719.
+- Scripts and functions that produce all the plots found in the main figures.
 
 ---
 
