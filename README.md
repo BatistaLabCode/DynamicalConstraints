@@ -5,9 +5,9 @@ This codepack accompanies the paper:
 “Dynamical constraints on neural population activity”
 by E. R. Oby†, A. D. Degenhart†, E. M. Grigsby†, A. N. Motiwala, N. T. McClain, P. J. Marino, B. M. Yu*, A. P. Batista*.
 *Nat Neurosci*, vol. 28, 2025, pp. 383-393.
+(†: indicates joint contributions, *: indicates joint supervision)
 
 https://www.nature.com/articles/s41593-024-01845-7
-(†: indicates joint contributions, *: indicates joint supervision)
 
 ## **Overview**
 This repository contains the data and code used for the analysis and figure generation in our recently published paper, [Dynamical constraints on neural population activity]. 
